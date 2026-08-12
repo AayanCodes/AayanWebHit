@@ -3225,6 +3225,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 8000);
   }
+
+  // Universal Image Fallback Handler for missing or misrouted images
+  document.addEventListener('error', function(e) {
+    if (e.target && e.target.tagName === 'IMG') {
+      const img = e.target;
+      if (!img.dataset.fallbackTried) {
+        img.dataset.fallbackTried = 'true';
+        const currentSrc = img.getAttribute('src') || '';
+        if (currentSrc.startsWith('images/')) {
+          img.src = currentSrc.replace(/^images\//, '');
+        } else if (!currentSrc.startsWith('http') && !currentSrc.startsWith('data:')) {
+          img.src = 'images/' + currentSrc;
+        }
+      }
+    }
+  }, true);
 });
 </script>
 </body>
