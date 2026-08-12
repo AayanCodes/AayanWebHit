@@ -2582,7 +2582,7 @@ footer {
             <div class="timeline-dot"></div>
             <div class="timeline-card">
               <div class="timeline-header">
-                <img src="images/logo1.png" class="edu-img" alt="Polytechnic Logo">
+                <img src="images/logo.png" class="edu-img" alt="Krishna Institute of Polytechnic Logo">
                 <div>
                   <h5 class="edu-degree">Diploma in Computer Science Engineering</h5>
                   <div class="edu-school">Krishna Institute of Polytechnic</div>
@@ -3096,9 +3096,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (counter) counter.textContent = `${String(index + 1).padStart(2, '0')} / 18`;
 
     if (mainImg) {
-      mainImg.src = `images/photo${index + 1}.jpeg`;
+      const newSrc = `images/photo${index + 1}.jpeg`;
+      if (mainImg.getAttribute('src') !== newSrc) {
+        mainImg.classList.remove('active');
+        mainImg.src = newSrc;
+      }
       mainImg.alt = currentItem.title;
-      mainImg.classList.remove('active');
+      if (mainImg.complete && mainImg.naturalWidth > 0) {
+        window.onGalleryImageLoad(mainImg);
+      }
     }
 
     thumbs.forEach((thumb, i) => {
