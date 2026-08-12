@@ -3,10 +3,6 @@
   "cleanUrls": false,
   "routes": [
     {
-      "src": "/images/(.*)",
-      "dest": "/images/$1"
-    },
-    {
       "handle": "filesystem"
     },
     {
