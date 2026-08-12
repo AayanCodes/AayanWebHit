@@ -327,15 +327,21 @@ section {
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* NAVBAR AVATAR STYLE */
+/* NAVBAR LOGO AVATAR STYLE */
 .navbar-avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center 15%;
-  border: 1.5px solid var(--secondary);
-  box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+  border: 2px solid var(--secondary);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar-avatar:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.7);
 }
 
 /* SCROLL PROGRESS INDICATOR */
@@ -2777,7 +2783,10 @@ footer {
 <!-- FOOTER -->
 <footer>
   <div class="container text-center">
-    <div class="footer-logo">Mohd Aayan</div>
+    <div class="footer-logo d-flex align-items-center justify-content-center gap-2 mb-2">
+      <img src="Profileimage.jpeg" alt="Mohd Aayan" class="navbar-avatar" style="width: 38px; height: 38px;">
+      <span>Mohd Aayan</span>
+    </div>
     <p class="mb-3 text-muted">B.Tech Computer Science & Engineering Undergraduate specializing in AI</p>
     
     <div class="footer-links">
