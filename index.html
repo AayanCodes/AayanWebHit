@@ -2628,11 +2628,242 @@ footer {
   border-color: var(--secondary);
   box-shadow: 0 0 5px var(--secondary);
 }
+/* ===================================================
+   COOL LUXURY TECH LOADING TRANSITION
+   =================================================== */
+.site-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #030712;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), 
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.85s;
+  pointer-events: auto;
+}
+
+.site-preloader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.05);
+  filter: blur(14px);
+  pointer-events: none;
+}
+
+.preloader-backdrop-glow {
+  position: absolute;
+  inset: -20%;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.18) 0%, transparent 40%),
+    radial-gradient(circle at 35% 35%, rgba(99, 102, 241, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 65% 65%, rgba(168, 85, 247, 0.18) 0%, transparent 45%);
+  filter: blur(60px);
+  animation: preloaderPulseGlow 4s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes preloaderPulseGlow {
+  0% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
+  100% { transform: scale(1.1) rotate(15deg); opacity: 1; }
+}
+
+.preloader-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  max-width: 420px;
+  width: 100%;
+}
+
+.preloader-brand-logo-container {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-ring-pulse {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.35) 0%, transparent 70%);
+  animation: preloaderPulseRing 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@keyframes preloaderPulseRing {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 0.3; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+.preloader-ring-spin {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--neon-cyan);
+  border-right-color: var(--primary);
+  border-bottom-color: var(--accent-purple);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+  animation: preloaderSpin 1.4s linear infinite;
+}
+
+.preloader-ring-spin-reverse {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px dashed rgba(56, 189, 248, 0.4);
+  animation: preloaderSpinReverse 6s linear infinite;
+}
+
+@keyframes preloaderSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes preloaderSpinReverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.preloader-logo-inner {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #0c1427 0%, #030712 100%);
+  border: 2px solid rgba(0, 242, 254, 0.6);
+  padding: 4px;
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.5), inset 0 0 12px rgba(0, 242, 254, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+}
+
+.preloader-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  animation: preloaderLogoBreathe 2.5s infinite ease-in-out;
+}
+
+@keyframes preloaderLogoBreathe {
+  0%, 100% { transform: scale(0.96); filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.6)); }
+  50% { transform: scale(1.04); filter: drop-shadow(0 0 18px rgba(0, 242, 254, 0.9)); }
+}
+
+.preloader-brand-name {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #ffffff 15%, var(--neon-cyan) 60%, var(--primary-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 14px rgba(0, 242, 254, 0.35));
+  margin-bottom: 4px;
+}
+
+.preloader-subtitle {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.preloader-progress-wrap {
+  width: 240px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  margin-bottom: 12px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.preloader-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--neon-cyan) 0%, var(--primary) 60%, var(--accent-purple) 100%);
+  border-radius: 50px;
+  box-shadow: 0 0 14px var(--neon-cyan);
+  transition: width 0.15s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+.preloader-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 240px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.preloader-status-text {
+  color: var(--neon-cyan);
+  letter-spacing: 1.5px;
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  text-transform: uppercase;
+}
+
+.preloader-counter {
+  color: #ffffff;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+}
 }
 </style>
 </head>
 
 <body>
+
+<!-- LUXURY CYBER LOADING TRANSITION -->
+<div id="sitePreloader" class="site-preloader">
+  <div class="preloader-backdrop-glow"></div>
+  <div class="preloader-content">
+    <div class="preloader-brand-logo-container">
+      <div class="preloader-ring-pulse"></div>
+      <div class="preloader-ring-spin-reverse"></div>
+      <div class="preloader-ring-spin"></div>
+      <div class="preloader-logo-inner">
+        <img src="logo.png" alt="AayanWebHit" class="preloader-logo-img">
+      </div>
+    </div>
+    
+    <div class="preloader-brand-name">AayanWebHit</div>
+    <div class="preloader-subtitle">Mohd Aayan • Portfolio & Studio</div>
+    
+    <div class="preloader-progress-wrap">
+      <div class="preloader-progress-bar" id="preloaderProgressBar"></div>
+    </div>
+    
+    <div class="preloader-status-row">
+      <span class="preloader-status-text" id="preloaderStatus">INITIALIZING...</span>
+      <span class="preloader-counter" id="preloaderCounter">0%</span>
+    </div>
+  </div>
+</div>
 
 <!-- SCROLL PROGRESS BAR -->
 <div class="scroll-indicator-container">
@@ -4252,6 +4483,77 @@ footer {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+// ===================================================
+// COOL LUXURY TECH PRELOADER TRANSITION LOGIC (4s DURATION)
+// ===================================================
+(function initSitePreloader() {
+  const preloader = document.getElementById('sitePreloader');
+  const progressBar = document.getElementById('preloaderProgressBar');
+  const counterText = document.getElementById('preloaderCounter');
+  const statusText = document.getElementById('preloaderStatus');
+  
+  if (!preloader) return;
+
+  const totalDuration = 3600; // 3.6s active progress, completes at 4s
+  const startTime = performance.now();
+  let isDone = false;
+
+  const statusMessages = [
+    { threshold: 0, text: 'INITIALIZING CORE MODULES...' },
+    { threshold: 18, text: 'LOADING ASSETS & SHADERS...' },
+    { threshold: 42, text: 'CALIBRATING AAYANWEBHIT UI...' },
+    { threshold: 68, text: 'OPTIMIZING NEON GLOW & SPEED...' },
+    { threshold: 88, text: 'SYSTEMS SYNCHRONIZED...' },
+    { threshold: 100, text: 'LAUNCHING EXPERIENCE...' }
+  ];
+
+  const updateStatus = (val) => {
+    for (let i = statusMessages.length - 1; i >= 0; i--) {
+      if (val >= statusMessages[i].threshold) {
+        if (statusText && statusText.textContent !== statusMessages[i].text) {
+          statusText.textContent = statusMessages[i].text;
+        }
+        break;
+      }
+    }
+  };
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function frame(now) {
+    if (isDone) return;
+    const elapsed = now - startTime;
+    const rawProgress = Math.min(elapsed / totalDuration, 1);
+    const easedProgress = easeOutCubic(rawProgress);
+    const percentage = Math.floor(easedProgress * 100);
+
+    if (progressBar) progressBar.style.width = `${percentage}%`;
+    if (counterText) counterText.textContent = `${percentage}%`;
+    updateStatus(percentage);
+
+    if (rawProgress < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      isDone = true;
+      if (progressBar) progressBar.style.width = '100%';
+      if (counterText) counterText.textContent = '100%';
+      if (statusText) statusText.textContent = 'LAUNCHING EXPERIENCE...';
+
+      // Reaches 4.0 seconds total before triggering fade-out
+      setTimeout(() => {
+        preloader.classList.add('loaded');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 1000);
+      }, 400);
+    }
+  }
+
+  requestAnimationFrame(frame);
+})();
+
 // SCROLL NAVBAR EFFECT & SCROLL TO TOP SHOW/HIDE & SCROLL PROGRESS
 window.addEventListener('scroll', function() {
   const navbar = document.getElementById('mainNavbar');
