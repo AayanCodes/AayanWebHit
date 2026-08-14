@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="panchayatBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0d12"/>
+      <stop offset="50%" stop-color="#141724"/>
+      <stop offset="100%" stop-color="#08090e"/>
+    </linearGradient>
+    <linearGradient id="emeraldGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="50%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="panchayatCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#172235" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0e1624" stop-opacity="0.95"/>
+    </linearGradient>
+    <filter id="panchayatGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" rx="16" fill="url(#panchayatBg)"/>
+  
+  <!-- Ambient Lights -->
+  <circle cx="700" cy="120" r="180" fill="#10b981" opacity="0.16" filter="url(#panchayatGlow)"/>
+  <circle cx="120" cy="380" r="160" fill="#f59e0b" opacity="0.12" filter="url(#panchayatGlow)"/>
+
+  <!-- Browser Chrome Top Bar -->
+  <rect x="0" y="0" width="800" height="42" rx="16" fill="#0d111b"/>
+  <rect x="0" y="26" width="800" height="16" fill="#0d111b"/>
+  <line x1="0" y1="42" x2="800" y2="42" stroke="rgba(16,185,129,0.2)" stroke-width="1"/>
+  
+  <!-- Window Controls -->
+  <circle cx="28" cy="21" r="5.5" fill="#ef4444"/>
+  <circle cx="46" cy="21" r="5.5" fill="#f59e0b"/>
+  <circle cx="64" cy="21" r="5.5" fill="#10b981"/>
+  
+  <!-- URL Bar -->
+  <rect x="100" y="10" width="460" height="22" rx="11" fill="#151d2f" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+  <text x="120" y="25" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto" font-size="11" font-weight="500">https://panchayat-cafe-seven.vercel.app</text>
+
+  <!-- Status Badge -->
+  <rect x="680" y="11" width="96" height="20" rx="10" fill="rgba(16,185,129,0.15)" stroke="#10b981" stroke-width="1"/>
+  <circle cx="692" cy="21" r="3.5" fill="#10b981"/>
+  <text x="702" y="25" fill="#34d399" font-family="sans-serif" font-size="10" font-weight="700">LIVE CAFE</text>
+
+  <!-- Top Mockup Navigation -->
+  <rect x="40" y="60" width="720" height="44" rx="22" fill="#101928" stroke="rgba(16,185,129,0.25)" stroke-width="1"/>
+  <text x="65" y="87" fill="url(#emeraldGold)" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="900" letter-spacing="1">PANCHAYAT CAFE</text>
+  <text x="250" y="87" fill="#6ee7b7" font-family="sans-serif" font-size="11" font-weight="600">★ CHILL &amp; BITE</text>
+
+  <text x="440" y="87" fill="#cbd5e1" font-family="sans-serif" font-size="12" font-weight="500">Home</text>
+  <text x="495" y="87" fill="#cbd5e1" font-family="sans-serif" font-size="12" font-weight="500">Brews</text>
+  <text x="555" y="87" fill="#cbd5e1" font-family="sans-serif" font-size="12" font-weight="500">Bites</text>
+  <text x="615" y="87" fill="#cbd5e1" font-family="sans-serif" font-size="12" font-weight="500">Location</text>
+  <rect x="675" y="68" width="72" height="28" rx="14" fill="url(#emeraldGold)"/>
+  <text x="687" y="86" fill="#0c111a" font-family="sans-serif" font-size="11" font-weight="800">Order Now</text>
+
+  <!-- Hero Banner inside Mockup -->
+  <rect x="40" y="118" width="720" height="225" rx="16" fill="url(#panchayatCard)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+  
+  <!-- Left Hero Details -->
+  <rect x="65" y="140" width="145" height="22" rx="11" fill="rgba(16,185,129,0.2)" stroke="rgba(16,185,129,0.4)" stroke-width="1"/>
+  <text x="75" y="155" fill="#34d399" font-family="sans-serif" font-size="10" font-weight="700">🌱 FRESH ARTISAN BREWS</text>
+
+  <text x="65" y="195" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="900">Good Times, Great Coffee</text>
+  <text x="65" y="230" fill="url(#emeraldGold)" font-family="'Plus Jakarta Sans', sans-serif" font-size="28" font-weight="900">&amp; Unforgettable Hangouts</text>
+  
+  <text x="65" y="265" fill="#94a3b8" font-family="sans-serif" font-size="12" font-weight="400">Your neighborhood destination for handcrafted coffee, frosty shakes,</text>
+  <text x="65" y="285" fill="#94a3b8" font-family="sans-serif" font-size="12" font-weight="400">crispy snacks, loaded sandwiches, and relaxing community vibes.</text>
+
+  <rect x="65" y="300" width="130" height="32" rx="8" fill="url(#emeraldGold)"/>
+  <text x="82" y="321" fill="#0c111a" font-family="sans-serif" font-size="12" font-weight="800">View Full Menu →</text>
+
+  <rect x="205" y="300" width="115" height="32" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(16,185,129,0.4)" stroke-width="1"/>
+  <text x="220" y="321" fill="#34d399" font-family="sans-serif" font-size="12" font-weight="700">Find Location</text>
+
+  <!-- Right Visual Cards (Mock Cafe Food) -->
+  <g transform="translate(485, 134)">
+    <rect width="245" height="192" rx="14" fill="#0e1726" stroke="rgba(16,185,129,0.4)" stroke-width="1"/>
+    
+    <!-- Food 1 -->
+    <rect x="15" y="15" width="215" height="76" rx="10" fill="#17263c"/>
+    <circle cx="50" cy="53" r="24" fill="#10b981" opacity="0.3"/>
+    <text x="50" y="59" text-anchor="middle" font-size="22">🧋</text>
+    <text x="86" y="44" fill="#ffffff" font-family="sans-serif" font-size="13" font-weight="700">Signature Frappuccino</text>
+    <text x="86" y="62" fill="#34d399" font-family="sans-serif" font-size="11" font-weight="600">Rich Hazelnut &amp; Cream • ₹180</text>
+    <rect x="86" y="70" width="75" height="12" rx="6" fill="#10b981" opacity="0.4"/>
+    <text x="94" y="79" fill="#34d399" font-size="9" font-weight="800">Chef Special</text>
+
+    <!-- Food 2 -->
+    <rect x="15" y="102" width="215" height="74" rx="10" fill="#141f32"/>
+    <circle cx="50" cy="139" r="22" fill="#fbbf24" opacity="0.3"/>
+    <text x="50" y="145" text-anchor="middle" font-size="20">🥪</text>
+    <text x="86" y="130" fill="#ffffff" font-family="sans-serif" font-size="13" font-weight="700">Grilled Club Sandwich</text>
+    <text x="86" y="148" fill="#fbbf24" font-family="sans-serif" font-size="11" font-weight="600">Triple layered &amp; cheesy • ₹160</text>
+  </g>
+
+  <!-- 3 Mini Feature Cards at Bottom -->
+  <g transform="translate(40, 355)">
+    <!-- Feature 1 -->
+    <rect x="0" y="0" width="225" height="110" rx="12" fill="#0f1929" stroke="rgba(16,185,129,0.2)" stroke-width="1"/>
+    <circle cx="35" cy="35" r="16" fill="rgba(16,185,129,0.2)"/>
+    <text x="35" y="40" text-anchor="middle" font-size="16">☕</text>
+    <text x="60" y="38" fill="#ffffff" font-family="sans-serif" font-size="13" font-weight="700">Specialty Coffee</text>
+    <text x="20" y="70" fill="#94a3b8" font-family="sans-serif" font-size="11">Single origin Arabica beans ground fresh on every cup.</text>
+
+    <!-- Feature 2 -->
+    <rect x="245" y="0" width="230" height="110" rx="12" fill="#0f1929" stroke="rgba(16,185,129,0.2)" stroke-width="1"/>
+    <circle cx="280" cy="35" r="16" fill="rgba(251,191,36,0.2)"/>
+    <text x="280" y="40" text-anchor="middle" font-size="16">🍔</text>
+    <text x="305" y="38" fill="#ffffff" font-family="sans-serif" font-size="13" font-weight="700">Fast Casual Dining</text>
+    <text x="265" y="70" fill="#94a3b8" font-family="sans-serif" font-size="11">Burgers, pastas, wraps, and quick snacking delicacies.</text>
+
+    <!-- Feature 3 -->
+    <rect x="495" y="0" width="225" height="110" rx="12" fill="#0f1929" stroke="rgba(16,185,129,0.2)" stroke-width="1"/>
+    <circle cx="530" cy="35" r="16" fill="rgba(56,189,248,0.2)"/>
+    <text x="530" y="40" text-anchor="middle" font-size="16">🎵</text>
+    <text x="555" y="38" fill="#ffffff" font-family="sans-serif" font-size="13" font-weight="700">Vibrant Ambience</text>
+    <text x="515" y="70" fill="#94a3b8" font-family="sans-serif" font-size="11">High-speed Wi-Fi, relaxed acoustic music &amp; seating.</text>
+  </g>
+</svg>
