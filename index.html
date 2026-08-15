@@ -27,6 +27,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- AOS (Animate On Scroll) CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
 <style>
 :root {
@@ -2214,6 +2216,43 @@ footer {
 
 /* RESPONSIVE MEDIA QUERIES */
 @media (max-width: 991.98px) {
+  .navbar-floating-wrapper {
+    top: 10px;
+    padding: 0 10px;
+  }
+
+  .navbar#mainNavbar {
+    border-radius: 20px;
+    padding: 10px 16px !important;
+  }
+
+  .brand-title-text {
+    font-size: 18px;
+  }
+
+  .brand-logo-wrap {
+    width: 38px;
+    height: 38px;
+  }
+
+  .navbar-collapse {
+    background: rgba(6, 10, 20, 0.98);
+    border-radius: 16px;
+    margin-top: 12px;
+    padding: 16px;
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 16px !important;
+    margin: 3px 0;
+    font-size: 14.5px;
+    border-radius: 12px;
+  }
+
   section {
     padding: 80px 0;
   }
@@ -2247,6 +2286,25 @@ footer {
 }
 
 @media (max-width: 575.98px) {
+  .navbar-floating-wrapper {
+    top: 8px;
+    padding: 0 8px;
+  }
+
+  .navbar#mainNavbar {
+    border-radius: 18px;
+    padding: 8px 12px !important;
+  }
+
+  .brand-title-text {
+    font-size: 16.5px;
+  }
+
+  .brand-logo-wrap {
+    width: 34px;
+    height: 34px;
+  }
+
   .hero h1 {
     font-size: 38px;
   }
@@ -2255,6 +2313,12 @@ footer {
   }
   .glass-card, .skill-category-card {
     padding: 24px;
+  }
+  .brand-showcase-card {
+    padding: 28px 20px;
+  }
+  .brand-cta-banner {
+    padding: 35px 20px;
   }
 }
 
@@ -2916,7 +2980,7 @@ footer {
 <section id="home" class="hero">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-lg-7 order-2 order-lg-1">
+      <div class="col-lg-7 order-2 order-lg-1" data-aos="fade-right" data-aos-duration="900">
         <!-- Dual Identity Badges -->
         <div class="d-flex flex-wrap align-items-center gap-2 mb-3 justify-content-center justify-content-lg-start">
           <div class="badge-ai">
@@ -2973,7 +3037,7 @@ footer {
         </div>
       </div>
       
-      <div class="col-lg-5 order-1 order-lg-2 text-center mb-4 mb-lg-0">
+      <div class="col-lg-5 order-1 order-lg-2 text-center mb-4 mb-lg-0" data-aos="fade-left" data-aos-duration="900">
         <div class="profile-image-wrapper">
           <div class="profile-glow-ring"></div>
           <div class="profile-glow-ring-inner"></div>
@@ -2987,13 +3051,13 @@ footer {
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
-    <div class="section-header text-center">
+    <div class="section-header text-center" data-aos="fade-up">
       <h2 class="section-title">About <span>Me</span></h2>
       <p class="section-subtitle mx-auto">Developer, Founder, and AI undergraduate driven by impactful digital engineering</p>
     </div>
     
     <div class="row g-4 align-items-center">
-      <div class="col-lg-8">
+      <div class="col-lg-8" data-aos="fade-right" data-aos-delay="100">
         <div class="glass-card h-100">
           <h4 class="mb-4 text-white" style="font-weight: 700;">Developer & Founder Profile</h4>
           <p class="mb-3" style="line-height: 1.8; color: var(--text-muted);">
@@ -3035,25 +3099,25 @@ footer {
 
       <div class="col-lg-4">
         <div class="row g-4">
-          <div class="col-6 col-lg-12">
+          <div class="col-6 col-lg-12" data-aos="fade-left" data-aos-delay="150">
             <div class="stat-box">
               <div class="stat-number">5+</div>
               <div class="stat-label">Certificates Earned</div>
             </div>
           </div>
-          <div class="col-6 col-lg-12">
+          <div class="col-6 col-lg-12" data-aos="fade-left" data-aos-delay="250">
             <div class="stat-box">
               <div class="stat-number">10+</div>
               <div class="stat-label">Digital Services & Solutions</div>
             </div>
           </div>
-          <div class="col-6 col-lg-12">
+          <div class="col-6 col-lg-12" data-aos="fade-left" data-aos-delay="350">
             <div class="stat-box">
               <div class="stat-number">100%</div>
               <div class="stat-label">Responsive & Custom Code</div>
             </div>
           </div>
-          <div class="col-6 col-lg-12">
+          <div class="col-6 col-lg-12" data-aos="fade-left" data-aos-delay="450">
             <div class="stat-box">
               <div class="stat-number" style="font-size: 24px;">Founder</div>
               <div class="stat-label">AayanWebHit Brand</div>
@@ -3071,7 +3135,7 @@ footer {
 <section id="aayanwebhit" class="position-relative">
   <div class="container">
     <!-- Section Header -->
-    <div class="section-header text-center">
+    <div class="section-header text-center" data-aos="fade-up">
       <div class="d-inline-flex align-items-center gap-2 mb-2 px-3 py-1 rounded-pill" style="background: rgba(0, 212, 255, 0.08); border: 1px solid rgba(0, 212, 255, 0.25);">
         <img src="aayanwebhit-icon.svg" width="16" height="16" alt="AayanWebHit">
         <span style="font-size: 13px; font-weight: 700; color: var(--secondary);">PROFESSIONAL DIGITAL AGENCY BRAND</span>
@@ -3081,10 +3145,15 @@ footer {
     </div>
 
     <!-- Grand Brand Showcase Card -->
-    <div class="brand-showcase-card">
+    <div class="brand-showcase-card" data-aos="fade-up" data-aos-delay="100">
       <div class="row align-items-center g-4">
         <div class="col-lg-6 text-center text-lg-start">
-          <img src="aayanwebhit-logo.svg" alt="AayanWebHit Logo" class="brand-showcase-logo mb-4">
+          <div class="brand-cta-header mb-4">
+            <div class="brand-cta-logo-wrap">
+              <img src="logo.png" alt="AayanWebHit Logo" class="brand-cta-logo-img">
+            </div>
+            <span class="brand-cta-brand-name">AayanWebHit</span>
+          </div>
           <h3 class="brand-mission-title">Empowering Ideas With Modern Web Architecture</h3>
           <p class="brand-mission-desc mb-4" style="color: #e9eef3;">
             Founded by <strong>Mohd Aayan</strong>, AayanWebHit specializes in developing custom, scalable, and high-performance websites and web applications. We combine creative UI/UX craftsmanship with clean, secure code to help founders, enterprises, and creators stand out online.
@@ -3122,7 +3191,7 @@ footer {
     </div>
 
     <!-- SERVICES SUB-HEADER -->
-    <div id="services" class="pt-3 mb-5 text-center">
+    <div id="services" class="pt-3 mb-5 text-center" data-aos="fade-up">
       <div class="d-inline-block position-relative">
         <h3 class="fw-bold text-white mb-2" style="font-size: 30px;">What We <span style="color: var(--secondary);">Build & Deliver</span></h3>
         <p class="mx-auto" style="max-width: 580px; color: #a8b3bd;">Tailored full-stack services engineered for performance, security, and growth</p>
@@ -3132,7 +3201,7 @@ footer {
     <!-- 10 SERVICES GRID -->
     <div class="row g-4 mb-5">
       <!-- Service 1: Business Website Development -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
         <div class="service-card">
           <div class="service-icon-wrap">
             <i class="bi bi-briefcase-fill"></i>
@@ -3154,7 +3223,7 @@ footer {
       </div>
 
       <!-- Service 2: Portfolio Websites -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
         <div class="service-card">
           <div class="service-icon-wrap">
             <i class="bi bi-person-badge-fill"></i>
@@ -3176,7 +3245,7 @@ footer {
       </div>
 
       <!-- Service 3: Restaurant & Cafe Websites -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="150">
         <div class="service-card">
           <div class="service-icon-wrap">
             <i class="bi bi-cup-hot-fill"></i>
@@ -3198,7 +3267,7 @@ footer {
       </div>
 
       <!-- Service 4: E-commerce Websites -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
         <div class="service-card">
           <div class="service-icon-wrap">
             <i class="bi bi-bag-check-fill"></i>
@@ -3220,7 +3289,7 @@ footer {
       </div>
 
       <!-- Service 5: Web Applications -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="250">
         <div class="service-card">
           <div class="service-icon-wrap">
             <i class="bi bi-window-stack"></i>
@@ -3242,7 +3311,7 @@ footer {
       </div>
 
       <!-- Service 6: Admin Dashboards -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
         <div class="service-card">
           <div class="service-icon-wrap">
             <i class="bi bi-speedometer2"></i>
@@ -3264,7 +3333,7 @@ footer {
       </div>
 
       <!-- Service 7: CRM / Business Management Systems -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="350">
         <div class="service-card">
           <div class="service-icon-wrap">
             <i class="bi bi-diagram-3-fill"></i>
@@ -3286,7 +3355,7 @@ footer {
       </div>
 
       <!-- Service 8: Custom Website Development -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
         <div class="service-card">
           <div class="service-icon-wrap">
             <i class="bi bi-code-slash"></i>
@@ -3308,7 +3377,7 @@ footer {
       </div>
 
       <!-- Service 9: Website Maintenance & Optimization -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="450">
         <div class="service-card">
           <div class="service-icon-wrap">
             <i class="bi bi-tools"></i>
@@ -3330,7 +3399,7 @@ footer {
       </div>
 
       <!-- Service 10: Deployment & Hosting Setup -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
         <div class="service-card">
           <div class="service-icon-wrap">
             <i class="bi bi-cloud-arrow-up-fill"></i>
@@ -3354,13 +3423,13 @@ footer {
 
     <!-- WHY CHOOSE AAYANWEBHIT? (8 VALUE PROPOSITIONS) -->
     <div class="pt-4 mb-5">
-      <div class="section-header text-center mb-4">
+      <div class="section-header text-center mb-4" data-aos="fade-up">
         <h3 class="fw-bold text-white" style="font-size: 28px;">Why Choose <span style="color: var(--secondary);">AayanWebHit</span>?</h3>
         <p class="section-subtitle mx-auto">Core technical and design standards built into every digital solution</p>
       </div>
 
       <div class="row g-3">
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="50">
           <div class="why-card">
             <div class="why-icon"><i class="bi bi-palette-fill"></i></div>
             <div>
@@ -3370,7 +3439,7 @@ footer {
           </div>
         </div>
 
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
           <div class="why-card">
             <div class="why-icon"><i class="bi bi-phone-fill"></i></div>
             <div>
@@ -3380,7 +3449,7 @@ footer {
           </div>
         </div>
 
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="150">
           <div class="why-card">
             <div class="why-icon"><i class="bi bi-lightning-fill"></i></div>
             <div>
@@ -3390,7 +3459,7 @@ footer {
           </div>
         </div>
 
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
           <div class="why-card">
             <div class="why-icon"><i class="bi bi-shield-check"></i></div>
             <div>
@@ -3400,7 +3469,7 @@ footer {
           </div>
         </div>
 
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="250">
           <div class="why-card">
             <div class="why-icon"><i class="bi bi-graph-up-arrow"></i></div>
             <div>
@@ -3410,7 +3479,7 @@ footer {
           </div>
         </div>
 
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
           <div class="why-card">
             <div class="why-icon"><i class="bi bi-hand-index-thumb-fill"></i></div>
             <div>
@@ -3420,7 +3489,7 @@ footer {
           </div>
         </div>
 
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="350">
           <div class="why-card">
             <div class="why-icon"><i class="bi bi-rocket-takeoff-fill"></i></div>
             <div>
@@ -3430,7 +3499,7 @@ footer {
           </div>
         </div>
 
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
           <div class="why-card">
             <div class="why-icon"><i class="bi bi-gear-wide-connected"></i></div>
             <div>
@@ -3444,34 +3513,34 @@ footer {
 
     <!-- 4-STEP WORKFLOW PROCESS -->
     <div class="pt-4 mb-4">
-      <div class="section-header text-center mb-4">
+      <div class="section-header text-center mb-4" data-aos="fade-up">
         <h3 class="fw-bold text-white" style="font-size: 28px;">Our 4-Step <span style="color: var(--secondary);">Development Workflow</span></h3>
         <p class="section-subtitle mx-auto">From initial concept to production launch with continuous transparency</p>
       </div>
 
       <div class="row g-4">
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
           <div class="process-card">
             <div class="process-number">01</div>
             <h5>Discovery & Scope</h5>
             <p>We analyze your business goals, target audience, and functional specifications to build a clear roadmap.</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
           <div class="process-card">
             <div class="process-number">02</div>
             <h5>UI/UX Wireframing</h5>
             <p>Designing modern wireframes and high-fidelity layouts with pristine visual hierarchy and typography.</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
           <div class="process-card">
             <div class="process-number">03</div>
             <h5>Modern Full-Stack Build</h5>
             <p>Writing clean, modular code, integrating backend APIs, databases, and rigorous performance testing.</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
           <div class="process-card">
             <div class="process-number">04</div>
             <h5>Launch & Ongoing Support</h5>
@@ -3482,7 +3551,7 @@ footer {
     </div>
 
     <!-- BUSINESS CTA BANNER -->
-    <div class="brand-cta-banner">
+    <div class="brand-cta-banner" data-aos="zoom-in" data-aos-duration="800">
       <div class="position-relative" style="z-index: 2;">
         <div class="brand-cta-header">
           <div class="brand-cta-logo-wrap">
@@ -3511,14 +3580,14 @@ footer {
 <!-- SKILLS -->
 <section id="skills">
   <div class="container">
-    <div class="section-header text-center">
+    <div class="section-header text-center" data-aos="fade-up">
       <h2 class="section-title">My <span>Skills</span></h2>
       <p class="section-subtitle mx-auto">A snapshot of my technological capabilities and proficiencies</p>
     </div>
     
     <div class="row g-4">
       <!-- Web Tech Stack -->
-      <div class="col-md-6 col-lg-3">
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
         <div class="skill-category-card">
           <div class="skill-icon-wrap">
             <i class="bi bi-code-slash"></i>
@@ -3575,7 +3644,7 @@ footer {
       </div>
 
       <!-- AI & Systems Specialization -->
-      <div class="col-md-6 col-lg-3">
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
         <div class="skill-category-card">
           <div class="skill-icon-wrap" style="background: rgba(157, 78, 221, 0.12); color: var(--accent);">
             <i class="bi bi-cpu-fill"></i>
@@ -3632,7 +3701,7 @@ footer {
       </div>
 
       <!-- Programming & Software Craftsmanship -->
-      <div class="col-md-6 col-lg-3">
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
         <div class="skill-category-card">
           <div class="skill-icon-wrap" style="background: rgba(0, 212, 255, 0.08); color: var(--secondary);">
             <i class="bi bi-terminal-fill"></i>
@@ -3689,7 +3758,7 @@ footer {
       </div>
 
       <!-- Hackathons & Innovation -->
-      <div class="col-md-6 col-lg-3">
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
         <div class="skill-category-card">
           <div class="skill-icon-wrap" style="background: rgba(255, 94, 135, 0.12); color: #ff5e87;">
             <i class="bi bi-lightning-charge-fill"></i>
@@ -3747,7 +3816,7 @@ footer {
     </div>
 
     <!-- Interactive Tech Journey & Activity Gallery -->
-    <div class="row mt-5">
+    <div class="row mt-5" data-aos="fade-up" data-aos-delay="150">
       <div class="col-12">
         <div class="skills-gallery-card">
           
@@ -3887,14 +3956,14 @@ footer {
 <!-- CERTIFICATES -->
 <section id="certificates">
   <div class="container">
-    <div class="section-header text-center">
+    <div class="section-header text-center" data-aos="fade-up">
       <h2 class="section-title">Achievements & <span>Certificates</span></h2>
       <p class="section-subtitle mx-auto">Milestones along my professional and educational development path</p>
     </div>
     
     <div class="row g-4">
       <!-- Certificate 1 -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
         <div class="cert-card">
           <div class="cert-img-container">
             <img src="hackspace.jpg" class="cert-img" alt="Google Hackspace Certificate">
@@ -3912,7 +3981,7 @@ footer {
       </div>
 
       <!-- Certificate 2 -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
         <div class="cert-card">
           <div class="cert-img-container">
             <img src="guvi-webinar.jpg" class="cert-img" alt="GUVI AI Webinar Certificate">
@@ -3930,7 +3999,7 @@ footer {
       </div>
 
       <!-- Certificate 3 -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="150">
         <div class="cert-card">
           <div class="cert-img-container">
             <img src="guvi-workshop.jpg" class="cert-img" alt="GUVI AI Workshop Certificate">
@@ -3948,7 +4017,7 @@ footer {
       </div>
 
       <!-- Certificate 4 -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
         <div class="cert-card">
           <div class="cert-img-container">
             <img src="canhack.jpg" class="cert-img" alt="canhack 2026 - Code-N-Play Certificate">
@@ -3966,7 +4035,7 @@ footer {
       </div>
 
       <!-- Certificate 5 -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="250">
         <div class="cert-card">
           <div class="cert-img-container">
             <img src="buildathon.jpg" class="cert-img" alt="Buildathon 1.0 Certificate">
@@ -3984,7 +4053,7 @@ footer {
       </div>
 
       <!-- Certificate 6 -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
         <div class="cert-card">
           <div class="cert-img-container">
             <img src="Codec.jpg" class="cert-img" alt="Codec Coding Excellence Certificate">
@@ -4002,7 +4071,7 @@ footer {
       </div>
 
       <!-- Certificate 7 -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="350">
         <div class="cert-card">
           <div class="cert-img-container">
             <img src="FutureIntern.jpg" class="cert-img" alt="Future Intern Developer Certificate">
@@ -4020,7 +4089,7 @@ footer {
       </div>
 
       <!-- Certificate 8 -->
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
         <div class="cert-card">
           <div class="cert-img-container">
             <img src="Matrix3.0.png" class="cert-img" alt="Matrix 3.0 Technical Excellence Certificate">
@@ -4052,7 +4121,7 @@ footer {
 <!-- EDUCATION -->
 <section id="education">
   <div class="container">
-    <div class="section-header text-center">
+    <div class="section-header text-center" data-aos="fade-up">
       <h2 class="section-title">My <span>Education</span></h2>
       <p class="section-subtitle mx-auto">Academic foundations and credentials that define my qualifications</p>
     </div>
@@ -4061,7 +4130,7 @@ footer {
       <div class="col-lg-10">
         <div class="timeline">
           <!-- Timeline Item 1 -->
-          <div class="timeline-item">
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
             <div class="timeline-dot"></div>
             <div class="timeline-card">
               <div class="timeline-header">
@@ -4079,7 +4148,7 @@ footer {
           </div>
 
           <!-- Timeline Item 2 -->
-          <div class="timeline-item">
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
             <div class="timeline-dot"></div>
             <div class="timeline-card">
               <div class="timeline-header">
@@ -4104,13 +4173,13 @@ footer {
 <!-- PROJECTS -->
 <section id="projects">
   <div class="container">
-    <div class="section-header text-center">
+    <div class="section-header text-center" data-aos="fade-up">
       <h2 class="section-title">Featured <span>Projects</span></h2>
       <p class="section-subtitle mx-auto">A handpicked selection of items that showcase practical engineering and digital craftsmanship</p>
     </div>
 
     <!-- PROJECT CATEGORY FILTERS -->
-    <div class="row mb-4">
+    <div class="row mb-4" data-aos="fade-up" data-aos-delay="100">
       <div class="col-12 text-center">
         <div class="project-filters">
           <button class="filter-btn active" data-filter="all">All Projects</button>
@@ -4123,7 +4192,7 @@ footer {
 
     <div class="row g-4">
       <!-- Project 1: Chacha Cafe & Restaurant -->
-      <div class="col-md-6 col-lg-4 project-item web aayanwebhit">
+      <div class="col-md-6 col-lg-4 project-item web aayanwebhit" data-aos="fade-up" data-aos-delay="50">
         <div class="project-card">
           <div class="project-img-wrap">
             <img src="chacha-cafe.png" alt="Chacha Cafe & Restaurant Web Platform">
@@ -4148,7 +4217,7 @@ footer {
       </div>
 
       <!-- Project 2: Flash Solar Dashboard -->
-      <div class="col-md-6 col-lg-4 project-item web aayanwebhit iot">
+      <div class="col-md-6 col-lg-4 project-item web aayanwebhit iot" data-aos="fade-up" data-aos-delay="100">
         <div class="project-card">
           <div class="project-img-wrap">
             <img src="solardashboard.png" alt="Flash Solar Energy Analytics Dashboard">
@@ -4173,7 +4242,7 @@ footer {
       </div>
 
       <!-- Project 3: D-Makeup Studio -->
-      <div class="col-md-6 col-lg-4 project-item web aayanwebhit">
+      <div class="col-md-6 col-lg-4 project-item web aayanwebhit" data-aos="fade-up" data-aos-delay="150">
         <div class="project-card">
           <div class="project-img-wrap">
             <img src="d-makeup.png" alt="D-Makeup Studio Beauty Platform">
@@ -4198,7 +4267,7 @@ footer {
       </div>
 
       <!-- Project 4: Panchayat Cafe -->
-      <div class="col-md-6 col-lg-4 project-item web aayanwebhit">
+      <div class="col-md-6 col-lg-4 project-item web aayanwebhit" data-aos="fade-up" data-aos-delay="200">
         <div class="project-card">
           <div class="project-img-wrap">
             <img src="panchayat-cafe.png" alt="Panchayat Cafe Bistro Platform">
@@ -4223,7 +4292,7 @@ footer {
       </div>
 
       <!-- Project 5 (MediShield) -->
-      <div class="col-md-6 col-lg-4 project-item web aayanwebhit">
+      <div class="col-md-6 col-lg-4 project-item web aayanwebhit" data-aos="fade-up" data-aos-delay="250">
         <div class="project-card">
           <div class="project-img-wrap">
             <img src="Medisheild.png" alt="MediShield Secure Health Platform">
@@ -4245,7 +4314,7 @@ footer {
       </div>
 
       <!-- Project 6 (Futuristic Coder Portfolio) -->
-      <div class="col-md-6 col-lg-4 project-item web aayanwebhit">
+      <div class="col-md-6 col-lg-4 project-item web aayanwebhit" data-aos="fade-up" data-aos-delay="300">
         <div class="project-card">
           <div class="project-img-wrap">
             <img src="portfolio.png" alt="Mohd Aayan's Coder Portfolio Mockup">
@@ -4267,7 +4336,7 @@ footer {
       </div>
 
       <!-- Project 7 (IoT Smart Socket Controller) -->
-      <div class="col-md-6 col-lg-4 project-item iot">
+      <div class="col-md-6 col-lg-4 project-item iot" data-aos="fade-up" data-aos-delay="350">
         <div class="project-card">
           <div class="project-img-wrap">
             <img src="images/project2.jpeg" alt="Smart Socket Mockup">
@@ -4294,13 +4363,13 @@ footer {
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <div class="section-header text-center">
+    <div class="section-header text-center" data-aos="fade-up">
       <h2 class="section-title">Let's Build <span>Something Great</span></h2>
       <p class="section-subtitle mx-auto">Have a project idea or need a high-performance web solution? Let’s collaborate through AayanWebHit</p>
     </div>
 
     <div class="row g-4">
-      <div class="col-lg-5">
+      <div class="col-lg-5" data-aos="fade-right" data-aos-delay="100">
         <div class="glass-card h-100 d-flex flex-column justify-content-between">
           <div>
             <div class="d-flex align-items-center gap-2 mb-3">
@@ -4355,7 +4424,7 @@ footer {
         </div>
       </div>
 
-      <div class="col-lg-7">
+      <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
         <div class="glass-card">
           <h4 class="mb-2 text-white" style="font-weight: 700;">Start A Project Inquiry</h4>
           <p class="mb-4" style="font-size: 14px; color: #b8c3cd;">Fill in your details below and we will get back to you with a tailored roadmap.</p>
@@ -4424,7 +4493,7 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <div class="container text-center">
+  <div class="container text-center" data-aos="fade-up">
     <div class="footer-logo d-flex align-items-center justify-content-center gap-3 mb-3">
       <div class="footer-logo-circle">
         <img src="logo.png" alt="AayanWebHit Logo">
@@ -4481,8 +4550,26 @@ footer {
 
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- AOS (Animate On Scroll) JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
 <script>
+// ===================================================
+// INITIALIZE AOS (ANIMATE ON SCROLL) LIBRARY
+// ===================================================
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 50,
+      delay: 50,
+      mirror: false
+    });
+  }
+});
+
 // ===================================================
 // COOL LUXURY TECH PRELOADER TRANSITION LOGIC (4s DURATION)
 // ===================================================
@@ -4546,6 +4633,9 @@ footer {
         preloader.classList.add('loaded');
         setTimeout(() => {
           preloader.style.display = 'none';
+          if (typeof AOS !== 'undefined') {
+            AOS.refreshHard();
+          }
         }, 1000);
       }, 400);
     }
@@ -4769,6 +4859,24 @@ document.addEventListener('DOMContentLoaded', () => {
           }, 350);
         }
       });
+
+      if (typeof AOS !== 'undefined') {
+        setTimeout(() => {
+          AOS.refresh();
+        }, 400);
+      }
+    });
+  });
+
+  // Mobile Navbar auto-close on link click
+  const navMenuCollapse = document.getElementById('menu');
+  const allNavClickLinks = document.querySelectorAll('.navbar-nav .nav-link, .navbar-brand');
+  allNavClickLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (navMenuCollapse && navMenuCollapse.classList.contains('show')) {
+        const bsCollapse = bootstrap.Collapse.getInstance(navMenuCollapse) || new bootstrap.Collapse(navMenuCollapse, { toggle: false });
+        bsCollapse.hide();
+      }
     });
   });
 
