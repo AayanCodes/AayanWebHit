@@ -1,0 +1,262 @@
+{
+  "entities": {
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "A project or service inquiry submitted by a website visitor.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the inquiry document.",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the person submitting the inquiry.",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the inquirer.",
+          "minLength": 3,
+          "maxLength": 180
+        },
+        "phone": {
+          "type": "string",
+          "description": "Optional phone or WhatsApp number of the inquirer.",
+          "maxLength": 40
+        },
+        "service": {
+          "type": "string",
+          "description": "Selected service or inquiry category.",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "formSource": {
+          "type": "string",
+          "description": "Origin form or CTA used to submit the inquiry.",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "timeline": {
+          "type": "string",
+          "description": "Desired project timeline or urgency.",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "subject": {
+          "type": "string",
+          "description": "Subject or project title of the inquiry.",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "message": {
+          "type": "string",
+          "description": "Detailed project requirements and inquiry message.",
+          "minLength": 1,
+          "maxLength": 3000
+        },
+        "status": {
+          "type": "string",
+          "description": "Review status of the inquiry.",
+          "enum": ["new", "reviewed", "replied", "archived"]
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Visitor session ID linking the inquiry to site visit logs.",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "deviceInfo": {
+          "type": "string",
+          "description": "Summary of browser, OS, and device type.",
+          "maxLength": 200
+        },
+        "timezone": {
+          "type": "string",
+          "description": "Visitor browser timezone.",
+          "maxLength": 80
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the inquiry was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the inquiry was last updated."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "phone",
+        "service",
+        "formSource",
+        "timeline",
+        "subject",
+        "message",
+        "status",
+        "sessionId",
+        "deviceInfo",
+        "timezone",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SiteVisit": {
+      "title": "SiteVisit",
+      "description": "A recorded website visit entry capturing visitor device, source, and session metadata.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the visit document.",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Unique session identifier for the visitor.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "deviceType": {
+          "type": "string",
+          "description": "Device category such as Mobile, Tablet, or Desktop.",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "browser": {
+          "type": "string",
+          "description": "Detected browser name.",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "os": {
+          "type": "string",
+          "description": "Detected operating system.",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "screenSize": {
+          "type": "string",
+          "description": "Viewport or screen resolution.",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "language": {
+          "type": "string",
+          "description": "Browser language preference.",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "timezone": {
+          "type": "string",
+          "description": "Visitor timezone string.",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "referrer": {
+          "type": "string",
+          "description": "Traffic source or document referrer.",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "pagePath": {
+          "type": "string",
+          "description": "Landing path and hash.",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the visit was recorded."
+        }
+      },
+      "required": [
+        "id",
+        "sessionId",
+        "deviceType",
+        "browser",
+        "os",
+        "screenSize",
+        "language",
+        "timezone",
+        "referrer",
+        "pagePath",
+        "createdAt"
+      ]
+    },
+    "VisitEvent": {
+      "title": "VisitEvent",
+      "description": "An interaction event recorded during a website visit (section viewed or service clicked).",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the visit event.",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "Visitor session identifier matching a SiteVisit.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "eventType": {
+          "type": "string",
+          "description": "Category of interaction event.",
+          "enum": ["section_view", "service_click", "project_view", "resume_download", "form_submit"]
+        },
+        "target": {
+          "type": "string",
+          "description": "Section, service, or item interacted with.",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of the interaction."
+        }
+      },
+      "required": [
+        "id",
+        "sessionId",
+        "eventType",
+        "target",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/inquiries/{inquiryId}": {
+      "schema": {
+        "$ref": "#/entities/Inquiry"
+      },
+      "description": "Project and service inquiries submitted by visitors."
+    },
+    "/visits/{visitId}": {
+      "schema": {
+        "$ref": "#/entities/SiteVisit"
+      },
+      "description": "Website visit logs recording visitor devices, sources, and timestamps."
+    },
+    "/visitEvents/{eventId}": {
+      "schema": {
+        "$ref": "#/entities/VisitEvent"
+      },
+      "description": "Interaction events (sections checked, services clicked) linked by sessionId."
+    }
+  }
+}

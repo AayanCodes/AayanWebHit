@@ -1,0 +1,140 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net: Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Reusable Hardened Helpers
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Bootstrapped Admin with verified email requirement (prevents email spoofing)
+    function isAdmin() {
+      return isSignedIn() &&
+        request.auth.token.email == 'aayanmalik3114@gmail.com' &&
+        request.auth.token.email_verified == true;
+    }
+
+    // Entity Validators (strict key allowlists + bounded types)
+    function isValidInquiry(data) {
+      return data.keys().hasAll([
+        'id', 'name', 'email', 'phone', 'service', 'formSource',
+        'timeline', 'subject', 'message', 'status', 'sessionId',
+        'deviceInfo', 'timezone', 'createdAt', 'updatedAt'
+      ]) &&
+      data.keys().hasOnly([
+        'id', 'name', 'email', 'phone', 'service', 'formSource',
+        'timeline', 'subject', 'message', 'status', 'sessionId',
+        'deviceInfo', 'timezone', 'createdAt', 'updatedAt'
+      ]) &&
+      isValidId(data.id) &&
+      data.name is string && data.name.size() >= 1 && data.name.size() <= 120 &&
+      data.email is string && data.email.size() >= 3 && data.email.size() <= 180 &&
+      data.phone is string && data.phone.size() <= 40 &&
+      data['service'] is string && data['service'].size() >= 1 && data['service'].size() <= 120 &&
+      data.formSource is string && data.formSource.size() >= 1 && data.formSource.size() <= 120 &&
+      data.timeline is string && data.timeline.size() >= 1 && data.timeline.size() <= 80 &&
+      data.subject is string && data.subject.size() >= 1 && data.subject.size() <= 200 &&
+      data.message is string && data.message.size() >= 1 && data.message.size() <= 3000 &&
+      data.status in ['new', 'reviewed', 'replied', 'archived'] &&
+      isValidId(data.sessionId) &&
+      data.deviceInfo is string && data.deviceInfo.size() <= 200 &&
+      data.timezone is string && data.timezone.size() <= 80 &&
+      data.createdAt is timestamp &&
+      data.updatedAt is timestamp;
+    }
+
+    function isValidSiteVisit(data) {
+      return data.keys().hasAll([
+        'id', 'sessionId', 'deviceType', 'browser', 'os',
+        'screenSize', 'language', 'timezone', 'referrer', 'pagePath', 'createdAt'
+      ]) &&
+      data.keys().hasOnly([
+        'id', 'sessionId', 'deviceType', 'browser', 'os',
+        'screenSize', 'language', 'timezone', 'referrer', 'pagePath', 'createdAt'
+      ]) &&
+      isValidId(data.id) &&
+      isValidId(data.sessionId) &&
+      data.deviceType is string && data.deviceType.size() >= 1 && data.deviceType.size() <= 40 &&
+      data.browser is string && data.browser.size() >= 1 && data.browser.size() <= 80 &&
+      data.os is string && data.os.size() >= 1 && data.os.size() <= 80 &&
+      data.screenSize is string && data.screenSize.size() >= 1 && data.screenSize.size() <= 40 &&
+      data.language is string && data.language.size() >= 1 && data.language.size() <= 40 &&
+      data.timezone is string && data.timezone.size() >= 1 && data.timezone.size() <= 80 &&
+      data.referrer is string && data.referrer.size() >= 1 && data.referrer.size() <= 300 &&
+      data.pagePath is string && data.pagePath.size() >= 1 && data.pagePath.size() <= 200 &&
+      data.createdAt is timestamp;
+    }
+
+    function isValidVisitEvent(data) {
+      return data.keys().hasAll(['id', 'sessionId', 'eventType', 'target', 'createdAt']) &&
+      data.keys().hasOnly(['id', 'sessionId', 'eventType', 'target', 'createdAt']) &&
+      isValidId(data.id) &&
+      isValidId(data.sessionId) &&
+      data.eventType in ['section_view', 'service_click', 'project_view', 'resume_download', 'form_submit'] &&
+      data.target is string && data.target.size() >= 1 && data.target.size() <= 160 &&
+      data.createdAt is timestamp;
+    }
+
+    // Inquiries Collection: Public create with strict schema; Admin-only read/update/delete (protects PII)
+    match /inquiries/{inquiryId} {
+      allow get: if isValidId(inquiryId) && isAdmin();
+      allow list: if isAdmin();
+      allow create: if isValidId(inquiryId) &&
+        isValidInquiry(incoming()) &&
+        incoming().id == inquiryId &&
+        incoming().status == 'new' &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isValidId(inquiryId) &&
+        isValidInquiry(incoming()) &&
+        isAdmin() &&
+        incoming().id == existing().id &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time &&
+        incoming().diff(existing()).affectedKeys().hasOnly(['status', 'updatedAt']);
+      allow delete: if isValidId(inquiryId) && isAdmin();
+    }
+
+    // Website Visits Collection: Public create with strict schema; Admin-only read/delete
+    match /visits/{visitId} {
+      allow get: if isValidId(visitId) && isAdmin();
+      allow list: if isAdmin();
+      allow create: if isValidId(visitId) &&
+        isValidSiteVisit(incoming()) &&
+        incoming().id == visitId &&
+        incoming().createdAt == request.time;
+      allow update: if false;
+      allow delete: if isValidId(visitId) && isAdmin();
+    }
+
+    // Website Visit Interaction Events: Public create with strict schema; Admin-only read/delete
+    match /visitEvents/{eventId} {
+      allow get: if isValidId(eventId) && isAdmin();
+      allow list: if isAdmin();
+      allow create: if isValidId(eventId) &&
+        isValidVisitEvent(incoming()) &&
+        incoming().id == eventId &&
+        incoming().createdAt == request.time;
+      allow update: if false;
+      allow delete: if isValidId(eventId) && isAdmin();
+    }
+  }
+}
