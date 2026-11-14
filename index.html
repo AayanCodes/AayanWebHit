@@ -6147,6 +6147,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  let activeProjectId = 'rock-dahlia-c98sv';
+
   window.ownerSignIn = async function() {
     if (!auth) return;
     const authError = document.getElementById('ownerAuthError');
@@ -6157,7 +6159,20 @@ document.addEventListener('DOMContentLoaded', () => {
       await signInWithPopup(auth, provider);
     } catch (error) {
       if (authError) {
-        authError.textContent = error?.message || 'Google sign-in failed. Please allow popups and try again.';
+        const code = error?.code || '';
+        const host = window.location.hostname || 'this domain';
+        if (code === 'auth/unauthorized-domain') {
+          const consoleUrl = `https://console.firebase.google.com/project/${encodeURIComponent(activeProjectId)}/authentication/settings`;
+          authError.innerHTML = `
+            <strong>Domain not authorized (${escapeHtml(host)}).</strong><br>
+            Add <code>${escapeHtml(host)}</code> in Firebase Console &rarr; Authentication &rarr; Settings &rarr; Authorized domains.<br>
+            <a href="${escapeHtml(consoleUrl)}" target="_blank" rel="noopener" class="text-info text-decoration-underline mt-1 d-inline-block">Open Firebase Authorized Domains Settings &rarr;</a>
+          `;
+        } else if (code === 'auth/popup-blocked') {
+          authError.textContent = 'Sign-in popup was blocked by your browser. Please allow popups for this site and click "Sign in with Google" again.';
+        } else {
+          authError.textContent = error?.message || 'Google sign-in failed. Please allow popups and try again.';
+        }
         authError.classList.remove('d-none');
       }
     }
@@ -6240,6 +6255,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch('/firebase-applet-config.json');
       if (!res.ok) throw new Error('Failed to load Firebase config');
       const firebaseConfig = await res.json();
+      if (firebaseConfig?.projectId) activeProjectId = firebaseConfig.projectId;
 
       app = initializeApp(firebaseConfig);
       db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
