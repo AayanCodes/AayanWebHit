@@ -58,6 +58,12 @@
   --accent-glow: 0 0 35px rgba(139, 92, 246, 0.3);
 }
 
+html {
+  overflow-x: clip;
+  max-width: 100%;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
   background-color: var(--dark-bg);
@@ -69,9 +75,11 @@ body {
     radial-gradient(circle at 45% 98%, rgba(99, 102, 241, 0.18) 0%, transparent 55%);
   background-attachment: fixed;
   color: var(--text-main);
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
   scroll-behavior: smooth;
   padding-top: 15px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* CUSTOM SCROLLBAR */
@@ -96,6 +104,7 @@ body {
   filter: blur(130px);
   z-index: -1;
   pointer-events: none;
+  will-change: auto;
 }
 .orb-1 {
   top: 8%;
@@ -123,6 +132,7 @@ body {
 section {
   padding: 110px 0;
   position: relative;
+  overflow-x: clip;
 }
 
 .section-header {
@@ -2216,6 +2226,24 @@ footer {
 
 /* RESPONSIVE MEDIA QUERIES */
 @media (max-width: 991.98px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .glowing-orb {
+    width: 240px !important;
+    height: 240px !important;
+    filter: blur(75px);
+    opacity: 0.7;
+  }
+
+  .glass-card,
+  .skill-category-card,
+  .service-card {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
   .navbar-floating-wrapper {
     top: 10px;
     padding: 0 12px;
@@ -2225,6 +2253,8 @@ footer {
     border-radius: 22px;
     padding: 8px 16px !important;
     background: rgba(8, 12, 22, 0.94) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     box-shadow: 
       0 12px 35px rgba(0, 0, 0, 0.8),
       0 0 20px rgba(6, 182, 212, 0.22);
@@ -2272,24 +2302,28 @@ footer {
   }
 
   section {
-    padding: 80px 0;
+    padding: 72px 0;
+  }
+  .section-header {
+    margin-bottom: 40px;
   }
   .hero {
-    padding-top: 120px;
-    padding-bottom: 60px;
+    padding-top: 98px;
+    padding-bottom: 52px;
     text-align: center;
+    min-height: auto;
   }
   .hero h1 {
-    font-size: 48px;
+    font-size: 44px;
   }
   .profile-image-wrapper {
-    width: 280px;
-    height: 280px;
-    margin-top: 40px;
+    width: 230px;
+    height: 230px;
+    margin-top: 18px;
   }
   .hero-img {
-    width: 246px;
-    height: 246px;
+    width: 202px;
+    height: 202px;
   }
   .social-links {
     justify-content: center;
@@ -2361,20 +2395,110 @@ footer {
     margin: 2px 0;
   }
 
+  section {
+    padding: 56px 0;
+  }
+
+  .hero {
+    padding-top: 86px;
+    padding-bottom: 44px;
+  }
   .hero h1 {
-    font-size: 38px;
+    font-size: 34px;
+    line-height: 1.15;
+  }
+  .hero-tagline {
+    font-size: 14.5px;
+    min-height: 46px !important;
+  }
+  .hero-trust-bar {
+    gap: 8px 14px;
+    font-size: 12.5px;
+  }
+  .profile-image-wrapper {
+    width: 196px;
+    height: 196px;
+    margin-top: 10px;
+  }
+  .hero-img {
+    width: 172px;
+    height: 172px;
+  }
+  .btn-premium,
+  .btn-outline-premium {
+    padding: 11px 18px;
+    font-size: 13.5px;
   }
   .section-title {
-    font-size: 30px;
+    font-size: 28px;
   }
-  .glass-card, .skill-category-card {
-    padding: 24px;
+  .section-subtitle {
+    font-size: 14px;
+  }
+  .glass-card, .skill-category-card, .service-card {
+    padding: 20px 18px;
+    border-radius: 18px;
   }
   .brand-showcase-card {
-    padding: 28px 20px;
+    padding: 24px 16px;
+    border-radius: 20px;
   }
   .brand-cta-banner {
-    padding: 35px 20px;
+    padding: 30px 18px;
+    border-radius: 20px;
+  }
+  .skills-gallery-card {
+    padding: 18px 14px;
+    border-radius: 18px;
+  }
+  .gallery-header-row {
+    margin-bottom: 14px;
+  }
+  .gallery-ctrl-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+  .contact-info-item {
+    padding: 14px;
+    gap: 12px;
+  }
+  .contact-info-text p,
+  .contact-info-text a {
+    word-break: break-word;
+    font-size: 13.5px;
+  }
+  .project-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .filter-btn {
+    padding: 7px 14px;
+    font-size: 12.5px;
+  }
+  .project-btn-group {
+    flex-wrap: wrap;
+  }
+  .timeline-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .scroll-top-btn {
+    right: 14px;
+    bottom: 16px;
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+  .toast-success {
+    left: 12px;
+    right: 12px;
+    bottom: 78px;
+    padding: 12px 16px;
+    font-size: 13.5px;
+    max-width: calc(100vw - 24px);
   }
 }
 
@@ -2763,18 +2887,16 @@ footer {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), 
-              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.85s;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.3s;
   pointer-events: auto;
 }
 
 .site-preloader.loaded {
   opacity: 0;
   visibility: hidden;
-  transform: scale(1.05);
-  filter: blur(14px);
+  transform: scale(1.03);
   pointer-events: none;
 }
 
@@ -3153,11 +3275,27 @@ footer {
 
 @media (max-width: 575.98px) {
   .owner-dashboard-overlay {
-    padding: 8px;
+    padding: 6px;
+  }
+  .owner-dashboard-shell {
+    max-height: 94dvh;
+    border-radius: 18px;
   }
   .owner-dashboard-header,
   .owner-dashboard-body {
-    padding: 14px 16px;
+    padding: 12px 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .owner-record-card {
+    padding: 14px;
+  }
+  #inquiryFilterBar {
+    width: 100%;
+  }
+  #ownerSearchInput,
+  #ownerStatusFilter {
+    flex: 1 1 140px;
+    width: auto !important;
   }
 }
 </style>
@@ -3434,9 +3572,9 @@ footer {
             <p class="mb-4" style="line-height: 1.8; font-style: italic; color: #e9eef3;">
               “Every business and project deserves a fast, beautiful, and purposeful web presence. At AayanWebHit, we build digital solutions designed from the ground up to captivate audiences, automate workflows, and deliver measurable results.”
             </p>
-            <div class="d-flex align-items-center justify-content-between pt-2 border-top border-secondary border-opacity-10">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 pt-2 border-top border-secondary border-opacity-10">
               <div class="d-flex align-items-center gap-3">
-                <img src="Profileimage.jpeg" alt="Mohd Aayan" style="width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--secondary);">
+                <img src="Profileimage.jpeg" loading="lazy" decoding="async" alt="Mohd Aayan" style="width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--secondary);">
                 <div>
                   <strong class="text-white d-block">Mohd Aayan</strong>
                   <small class="text-info">Founder & Lead Developer</small>
@@ -4134,75 +4272,75 @@ footer {
           <div class="gallery-thumb-container">
             <div class="gallery-thumb-track" id="galleryThumbTrack">
               <div class="gallery-thumb-item active" onclick="setGallerySlide(0)">
-                <img src="photo1.jpeg" alt="Thumb 1">
+                <img src="photo1.jpeg" loading="lazy" decoding="async" alt="Thumb 1">
                 <div class="gallery-thumb-overlay-num">01</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(1)">
-                <img src="photo2.jpeg" alt="Thumb 2">
+                <img src="photo2.jpeg" loading="lazy" decoding="async" alt="Thumb 2">
                 <div class="gallery-thumb-overlay-num">02</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(2)">
-                <img src="photo3.jpeg" alt="Thumb 3">
+                <img src="photo3.jpeg" loading="lazy" decoding="async" alt="Thumb 3">
                 <div class="gallery-thumb-overlay-num">03</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(3)">
-                <img src="photo4.jpeg" alt="Thumb 4">
+                <img src="photo4.jpeg" loading="lazy" decoding="async" alt="Thumb 4">
                 <div class="gallery-thumb-overlay-num">04</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(4)">
-                <img src="photo5.jpeg" alt="Thumb 5">
+                <img src="photo5.jpeg" loading="lazy" decoding="async" alt="Thumb 5">
                 <div class="gallery-thumb-overlay-num">05</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(5)">
-                <img src="photo6.jpeg" alt="Thumb 6">
+                <img src="photo6.jpeg" loading="lazy" decoding="async" alt="Thumb 6">
                 <div class="gallery-thumb-overlay-num">06</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(6)">
-                <img src="photo7.jpeg" alt="Thumb 7">
+                <img src="photo7.jpeg" loading="lazy" decoding="async" alt="Thumb 7">
                 <div class="gallery-thumb-overlay-num">07</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(7)">
-                <img src="photo8.jpeg" alt="Thumb 8">
+                <img src="photo8.jpeg" loading="lazy" decoding="async" alt="Thumb 8">
                 <div class="gallery-thumb-overlay-num">08</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(8)">
-                <img src="photo9.jpeg" alt="Thumb 9">
+                <img src="photo9.jpeg" loading="lazy" decoding="async" alt="Thumb 9">
                 <div class="gallery-thumb-overlay-num">09</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(9)">
-                <img src="photo10.jpeg" alt="Thumb 10">
+                <img src="photo10.jpeg" loading="lazy" decoding="async" alt="Thumb 10">
                 <div class="gallery-thumb-overlay-num">10</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(10)">
-                <img src="photo11.jpeg" alt="Thumb 11">
+                <img src="photo11.jpeg" loading="lazy" decoding="async" alt="Thumb 11">
                 <div class="gallery-thumb-overlay-num">11</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(11)">
-                <img src="photo12.jpeg" alt="Thumb 12">
+                <img src="photo12.jpeg" loading="lazy" decoding="async" alt="Thumb 12">
                 <div class="gallery-thumb-overlay-num">12</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(12)">
-                <img src="photo13.jpeg" alt="Thumb 13">
+                <img src="photo13.jpeg" loading="lazy" decoding="async" alt="Thumb 13">
                 <div class="gallery-thumb-overlay-num">13</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(13)">
-                <img src="photo14.jpeg" alt="Thumb 14">
+                <img src="photo14.jpeg" loading="lazy" decoding="async" alt="Thumb 14">
                 <div class="gallery-thumb-overlay-num">14</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(14)">
-                <img src="photo15.jpeg" alt="Thumb 15">
+                <img src="photo15.jpeg" loading="lazy" decoding="async" alt="Thumb 15">
                 <div class="gallery-thumb-overlay-num">15</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(15)">
-                <img src="photo16.jpeg" alt="Thumb 16">
+                <img src="photo16.jpeg" loading="lazy" decoding="async" alt="Thumb 16">
                 <div class="gallery-thumb-overlay-num">16</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(16)">
-                <img src="photo17.jpeg" alt="Thumb 17">
+                <img src="photo17.jpeg" loading="lazy" decoding="async" alt="Thumb 17">
                 <div class="gallery-thumb-overlay-num">17</div>
               </div>
               <div class="gallery-thumb-item" onclick="setGallerySlide(17)">
-                <img src="photo18.jpeg" alt="Thumb 18">
+                <img src="photo18.jpeg" loading="lazy" decoding="async" alt="Thumb 18">
                 <div class="gallery-thumb-overlay-num">18</div>
               </div>
             </div>
@@ -4227,7 +4365,7 @@ footer {
       <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
         <div class="cert-card">
           <div class="cert-img-container">
-            <img src="hackspace.jpg" class="cert-img" alt="Google Hackspace Certificate">
+            <img src="hackspace.jpg" loading="lazy" decoding="async" class="cert-img" alt="Google Hackspace Certificate">
             <div class="cert-overlay">
               <div class="cert-zoom-btn" onclick="openLightbox('hackspace.jpg', 'Google Hackspace Certificate')">
                 <i class="bi bi-arrows-fullscreen"></i>
@@ -4245,7 +4383,7 @@ footer {
       <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
         <div class="cert-card">
           <div class="cert-img-container">
-            <img src="guvi-webinar.jpg" class="cert-img" alt="GUVI AI Webinar Certificate">
+            <img src="guvi-webinar.jpg" loading="lazy" decoding="async" class="cert-img" alt="GUVI AI Webinar Certificate">
             <div class="cert-overlay">
               <div class="cert-zoom-btn" onclick="openLightbox('guvi-webinar.jpg', 'GUVI AI Webinar Certificate')">
                 <i class="bi bi-arrows-fullscreen"></i>
@@ -4263,7 +4401,7 @@ footer {
       <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="150">
         <div class="cert-card">
           <div class="cert-img-container">
-            <img src="guvi-workshop.jpg" class="cert-img" alt="GUVI AI Workshop Certificate">
+            <img src="guvi-workshop.jpg" loading="lazy" decoding="async" class="cert-img" alt="GUVI AI Workshop Certificate">
             <div class="cert-overlay">
               <div class="cert-zoom-btn" onclick="openLightbox('guvi-workshop.jpg', 'GUVI AI Workshop Certificate')">
                 <i class="bi bi-arrows-fullscreen"></i>
@@ -4281,7 +4419,7 @@ footer {
       <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
         <div class="cert-card">
           <div class="cert-img-container">
-            <img src="canhack.jpg" class="cert-img" alt="canhack 2026 - Code-N-Play Certificate">
+            <img src="canhack.jpg" loading="lazy" decoding="async" class="cert-img" alt="canhack 2026 - Code-N-Play Certificate">
             <div class="cert-overlay">
               <div class="cert-zoom-btn" onclick="openLightbox('canhack.jpg', 'canhack 2026 - Code-N-Play Certificate')">
                 <i class="bi bi-arrows-fullscreen"></i>
@@ -4299,7 +4437,7 @@ footer {
       <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="250">
         <div class="cert-card">
           <div class="cert-img-container">
-            <img src="buildathon.jpg" class="cert-img" alt="Buildathon 1.0 Certificate">
+            <img src="buildathon.jpg" loading="lazy" decoding="async" class="cert-img" alt="Buildathon 1.0 Certificate">
             <div class="cert-overlay">
               <div class="cert-zoom-btn" onclick="openLightbox('buildathon.jpg', 'Buildathon 1.0 - 3rd Position Certificate')">
                 <i class="bi bi-arrows-fullscreen"></i>
@@ -4317,7 +4455,7 @@ footer {
       <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
         <div class="cert-card">
           <div class="cert-img-container">
-            <img src="Codec.jpg" class="cert-img" alt="Codec Coding Excellence Certificate">
+            <img src="Codec.jpg" loading="lazy" decoding="async" class="cert-img" alt="Codec Coding Excellence Certificate">
             <div class="cert-overlay">
               <div class="cert-zoom-btn" onclick="openLightbox('Codec.jpg', 'Codec Coding Excellence Certificate')">
                 <i class="bi bi-arrows-fullscreen"></i>
@@ -4335,7 +4473,7 @@ footer {
       <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="350">
         <div class="cert-card">
           <div class="cert-img-container">
-            <img src="FutureIntern.jpg" class="cert-img" alt="Future Intern Developer Certificate">
+            <img src="FutureIntern.jpg" loading="lazy" decoding="async" class="cert-img" alt="Future Intern Developer Certificate">
             <div class="cert-overlay">
               <div class="cert-zoom-btn" onclick="openLightbox('FutureIntern.jpg', 'Future Intern Developer Certificate')">
                 <i class="bi bi-arrows-fullscreen"></i>
@@ -4353,7 +4491,7 @@ footer {
       <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
         <div class="cert-card">
           <div class="cert-img-container">
-            <img src="Matrix3.0.png" class="cert-img" alt="Matrix 3.0 Technical Excellence Certificate">
+            <img src="Matrix3.0.png" loading="lazy" decoding="async" class="cert-img" alt="Matrix 3.0 Technical Excellence Certificate">
             <div class="cert-overlay">
               <div class="cert-zoom-btn" onclick="openLightbox('Matrix3.0.png', 'Matrix 3.0 Technical Excellence Certificate')">
                 <i class="bi bi-arrows-fullscreen"></i>
@@ -4395,7 +4533,7 @@ footer {
             <div class="timeline-dot"></div>
             <div class="timeline-card">
               <div class="timeline-header">
-                <img src="images/kcclogo.png" class="edu-img" alt="KCC Institute Logo">
+                <img src="images/kcclogo.png" loading="lazy" decoding="async" class="edu-img" alt="KCC Institute Logo">
                 <div>
                   <h5 class="edu-degree">B.Tech Computer Science & Engineering (AI)</h5>
                   <div class="edu-school">KCC Institute of Technology & Management</div>
@@ -4413,7 +4551,7 @@ footer {
             <div class="timeline-dot"></div>
             <div class="timeline-card">
               <div class="timeline-header">
-                <img src="images/logo1.png" class="edu-img" alt="Polytechnic Logo">
+                <img src="images/logo1.png" loading="lazy" decoding="async" class="edu-img" alt="Polytechnic Logo">
                 <div>
                   <h5 class="edu-degree">Diploma in Computer Science Engineering</h5>
                   <div class="edu-school">Krishna Institute of Polytechnic</div>
@@ -4456,7 +4594,7 @@ footer {
       <div class="col-md-6 col-lg-4 project-item web aayanwebhit" data-aos="fade-up" data-aos-delay="50">
         <div class="project-card">
           <div class="project-img-wrap">
-            <img src="chacha-cafe.png" alt="Chacha Cafe & Restaurant Web Platform">
+            <img src="chacha-cafe.png" loading="lazy" decoding="async" alt="Chacha Cafe & Restaurant Web Platform">
           </div>
           <h5>Chacha Cafe & Restaurant</h5>
           <p>
@@ -4481,7 +4619,7 @@ footer {
       <div class="col-md-6 col-lg-4 project-item web aayanwebhit iot" data-aos="fade-up" data-aos-delay="100">
         <div class="project-card">
           <div class="project-img-wrap">
-            <img src="solardashboard.png" alt="Flash Solar Energy Analytics Dashboard">
+            <img src="solardashboard.png" loading="lazy" decoding="async" alt="Flash Solar Energy Analytics Dashboard">
           </div>
           <h5>Flash Solar Dashboard</h5>
           <p>
@@ -4506,7 +4644,7 @@ footer {
       <div class="col-md-6 col-lg-4 project-item web aayanwebhit" data-aos="fade-up" data-aos-delay="150">
         <div class="project-card">
           <div class="project-img-wrap">
-            <img src="d-makeup.png" alt="D-Makeup Studio Beauty Platform">
+            <img src="d-makeup.png" loading="lazy" decoding="async" alt="D-Makeup Studio Beauty Platform">
           </div>
           <h5>D-Makeup Studio</h5>
           <p>
@@ -4531,7 +4669,7 @@ footer {
       <div class="col-md-6 col-lg-4 project-item web aayanwebhit" data-aos="fade-up" data-aos-delay="200">
         <div class="project-card">
           <div class="project-img-wrap">
-            <img src="panchayat-cafe.png" alt="Panchayat Cafe Bistro Platform">
+            <img src="panchayat-cafe.png" loading="lazy" decoding="async" alt="Panchayat Cafe Bistro Platform">
           </div>
           <h5>Panchayat Cafe</h5>
           <p>
@@ -4556,7 +4694,7 @@ footer {
       <div class="col-md-6 col-lg-4 project-item web aayanwebhit" data-aos="fade-up" data-aos-delay="250">
         <div class="project-card">
           <div class="project-img-wrap">
-            <img src="Medisheild.png" alt="MediShield Secure Health Platform">
+            <img src="Medisheild.png" loading="lazy" decoding="async" alt="MediShield Secure Health Platform">
           </div>
           <h5>MediShield – Secure Health Platform</h5>
           <p>
@@ -4578,7 +4716,7 @@ footer {
       <div class="col-md-6 col-lg-4 project-item web aayanwebhit" data-aos="fade-up" data-aos-delay="300">
         <div class="project-card">
           <div class="project-img-wrap">
-            <img src="portfolio.png" alt="Mohd Aayan's Coder Portfolio Mockup">
+            <img src="portfolio.png" loading="lazy" decoding="async" alt="Mohd Aayan's Coder Portfolio Mockup">
           </div>
           <h5>Futuristic Coder Portfolio</h5>
           <p>
@@ -4600,7 +4738,7 @@ footer {
       <div class="col-md-6 col-lg-4 project-item iot" data-aos="fade-up" data-aos-delay="350">
         <div class="project-card">
           <div class="project-img-wrap">
-            <img src="images/project2.jpeg" alt="Smart Socket Mockup">
+            <img src="images/project2.jpeg" loading="lazy" decoding="async" alt="Smart Socket Mockup">
           </div>
           <h5>IoT Smart Socket Controller</h5>
           <p>
@@ -4945,18 +5083,18 @@ footer {
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof AOS !== 'undefined') {
     AOS.init({
-      duration: 800,
+      duration: 450,
       easing: 'ease-out-cubic',
       once: true,
-      offset: 50,
-      delay: 50,
+      offset: 20,
+      delay: 0,
       mirror: false
     });
   }
 });
 
 // ===================================================
-// COOL LUXURY TECH PRELOADER TRANSITION LOGIC (4s DURATION)
+// FAST CYBER PRELOADER TRANSITION LOGIC (< 800ms)
 // ===================================================
 (function initSitePreloader() {
   const preloader = document.getElementById('sitePreloader');
@@ -4966,17 +5104,16 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (!preloader) return;
 
-  const totalDuration = 3600; // 3.6s active progress, completes at 4s
+  const isRepeatVisit = sessionStorage.getItem('awh_preloader_seen') === '1';
+  const totalDuration = isRepeatVisit ? 180 : 550;
+  sessionStorage.setItem('awh_preloader_seen', '1');
   const startTime = performance.now();
   let isDone = false;
 
   const statusMessages = [
-    { threshold: 0, text: 'INITIALIZING CORE MODULES...' },
-    { threshold: 18, text: 'LOADING ASSETS & SHADERS...' },
-    { threshold: 42, text: 'CALIBRATING AAYANWEBHIT UI...' },
-    { threshold: 68, text: 'OPTIMIZING NEON GLOW & SPEED...' },
-    { threshold: 88, text: 'SYSTEMS SYNCHRONIZED...' },
-    { threshold: 100, text: 'LAUNCHING EXPERIENCE...' }
+    { threshold: 0, text: 'INITIALIZING CORE...' },
+    { threshold: 45, text: 'OPTIMIZING UI & SPEED...' },
+    { threshold: 90, text: 'LAUNCHING EXPERIENCE...' }
   ];
 
   const updateStatus = (val) => {
@@ -5013,48 +5150,69 @@ document.addEventListener('DOMContentLoaded', function() {
       if (counterText) counterText.textContent = '100%';
       if (statusText) statusText.textContent = 'LAUNCHING EXPERIENCE...';
 
-      // Reaches 4.0 seconds total before triggering fade-out
       setTimeout(() => {
         preloader.classList.add('loaded');
         setTimeout(() => {
           preloader.style.display = 'none';
           if (typeof AOS !== 'undefined') {
-            AOS.refreshHard();
+            AOS.refresh();
           }
-        }, 1000);
-      }, 400);
+        }, 350);
+      }, 100);
     }
   }
 
   requestAnimationFrame(frame);
 })();
 
-// SCROLL NAVBAR EFFECT & SCROLL TO TOP SHOW/HIDE & SCROLL PROGRESS
-window.addEventListener('scroll', function() {
-  const navbar = document.getElementById('mainNavbar');
-  const scrollTopBtn = document.getElementById('scrollTopBtn');
-  
-  if (window.scrollY > 50) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
-  
-  if (window.scrollY > 400) {
-    scrollTopBtn.classList.add('visible');
-  } else {
-    scrollTopBtn.classList.remove('visible');
+// UNIFIED RAF-THROTTLED PASSIVE SCROLL HANDLER (60/120FPS MOBILE SMOOTHNESS)
+(function initSmoothScrollHandlers() {
+  let ticking = false;
+  let cachedSections = null;
+  let cachedNavLinks = null;
+
+  function updateOnScroll() {
+    ticking = false;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const navbar = document.getElementById('mainNavbar');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const progressBar = document.getElementById('scrollProgress');
+
+    if (navbar) {
+      navbar.classList.toggle('scrolled', scrollY > 50);
+    }
+    if (scrollTopBtn) {
+      scrollTopBtn.classList.toggle('visible', scrollY > 400);
+    }
+    if (progressBar) {
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (scrollY / height) * 100 : 0;
+      progressBar.style.width = scrolled + '%';
+    }
+
+    if (!cachedSections) cachedSections = document.querySelectorAll('section[id]');
+    if (!cachedNavLinks) cachedNavLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+    let currentSectionId = '';
+    for (let i = 0; i < cachedSections.length; i++) {
+      const sec = cachedSections[i];
+      if (scrollY >= sec.offsetTop - 150) {
+        currentSectionId = sec.getAttribute('id') || '';
+      }
+    }
+    for (let i = 0; i < cachedNavLinks.length; i++) {
+      const link = cachedNavLinks[i];
+      link.classList.toggle('active', link.getAttribute('href') === `#${currentSectionId}`);
+    }
   }
 
-  // Scroll progress calculation
-  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-  const progressBar = document.getElementById('scrollProgress');
-  if (progressBar) {
-    progressBar.style.width = scrolled + '%';
-  }
-});
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateOnScroll);
+    }
+  }, { passive: true });
+})();
 
 // SCROLL TO TOP FUNCTION
 function scrollToTop() {
@@ -5223,31 +5381,8 @@ function showNotification(text) {
   }, 4500);
 }
 
-// SCROLL SPY ACTIVE SECTION LINK HIGHLIGHT & INTERACTIVE INITIALIZERS
+// INTERACTIVE INITIALIZERS
 document.addEventListener('DOMContentLoaded', () => {
-  const sections = document.querySelectorAll('section');
-  const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-  
-  window.addEventListener('scroll', () => {
-    let currentSectionId = '';
-    
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      // Adjust scroll offset to trigger highlight early
-      if (window.scrollY >= (sectionTop - 150)) {
-        currentSectionId = section.getAttribute('id');
-      }
-    });
-    
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${currentSectionId}`) {
-        link.classList.add('active');
-      }
-    });
-  });
-
   // TYPEWRITER EFFECT IN HERO
   const typedTextSpan = document.getElementById('typed-text');
   if (typedTextSpan) {
