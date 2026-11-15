@@ -4250,7 +4250,7 @@ footer {
             </div>
 
             <!-- Single slide image that loads current index -->
-            <img src="photo1.jpeg" id="galleryMainImage" class="gallery-slide-img" alt="Tech Activity" onload="onGalleryImageLoad(this)" onerror="onGalleryImageError(this)">
+            <img src="photo1.jpeg" id="galleryMainImage" class="gallery-slide-img" alt="Tech Activity">
 
             <!-- Overlay Details Panel -->
             <div class="gallery-img-meta-tag active" id="galleryMetaTag">
@@ -4910,18 +4910,6 @@ footer {
     <p class="mb-3" style="max-width: 600px; margin-left: auto; margin-right: auto; color: #c9d7e5;">
       Building modern websites, web applications and digital experiences through <strong>AayanWebHit</strong>.
     </p>
-    
-    <div class="footer-links">
-      <a href="#home" class="footer-link">Home</a>
-      <a href="#about" class="footer-link">About</a>
-      <a href="#aayanwebhit" class="footer-link">AayanWebHit</a>
-      <a href="#services" class="footer-link">Services</a>
-      <a href="#skills" class="footer-link">Skills</a>
-      <a href="#certificates" class="footer-link">Certificates</a>
-      <a href="#education" class="footer-link">Education</a>
-      <a href="#projects" class="footer-link">Projects</a>
-      <a href="#contact" class="footer-link">Contact</a>
-    </div>
 
     <div class="social-links justify-content-center mb-4">
       <a href="https://github.com/AayanCodes" target="_blank" class="social-btn" style="width: 40px; height: 40px; font-size: 16px;" title="GitHub">
@@ -4942,7 +4930,6 @@ footer {
       <button type="button" onclick="openOwnerDashboard()" class="btn-owner-portal" id="ownerPortalTrigger">
         <i class="bi bi-shield-lock-fill text-info"></i>
         <span>Owner Dashboard</span>
-        <span id="ownerUnreadBadge" class="owner-unread-badge d-none">0</span>
       </button>
     </div>
   </div>
@@ -5033,6 +5020,10 @@ footer {
               <i class="bi bi-people-fill"></i> Website Visitors
               <span class="owner-unread-badge" id="tabCountVisitors" style="background: rgba(56,189,248,0.25); color: #e0f2fe;">0</span>
             </button>
+            <button type="button" class="owner-tab-btn" id="tabBtnSections" onclick="switchOwnerTab('sections')">
+              <i class="bi bi-eye-slash-fill"></i> Manage Sections
+              <span class="owner-pill owner-pill-cyan ms-1" style="font-size: 11px;" id="hiddenSectionsCount">0 hidden</span>
+            </button>
           </div>
 
           <div class="d-flex flex-wrap align-items-center gap-2" id="inquiryFilterBar">
@@ -5052,6 +5043,20 @@ footer {
 
         <!-- Visitors Panel -->
         <div id="ownerPanelVisitors" class="d-none"></div>
+
+        <!-- Website Sections Visibility Panel -->
+        <div id="ownerPanelSections" class="d-none">
+          <div class="owner-record-card mb-3" style="background: rgba(6, 182, 212, 0.08); border-color: rgba(6, 182, 212, 0.3);">
+            <div class="d-flex align-items-center gap-3">
+              <i class="bi bi-sliders fs-3 text-info"></i>
+              <div>
+                <h6 class="text-white fw-bold mb-1">Website Section Visibility Control</h6>
+                <p class="mb-0" style="color: #cbd5e1; font-size: 13.5px;">Toggle About, Skills, Certificates, Education, and Projects sections on or off instantly across your main portfolio website.</p>
+              </div>
+            </div>
+          </div>
+          <div id="sectionToggleList" class="row g-3"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -5502,6 +5507,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const autoplaySpeed = 4000;
 
   window.onGalleryImageLoad = function(img) {
+    if (!img) return;
     img.classList.add('active');
     const fallback = document.getElementById('galleryFallback');
     if (fallback) {
@@ -5511,6 +5517,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.onGalleryImageError = function(img) {
+    if (!img) return;
     img.classList.remove('active');
     const fallback = document.getElementById('galleryFallback');
     if (fallback) {
@@ -5518,6 +5525,12 @@ document.addEventListener('DOMContentLoaded', () => {
       fallback.style.pointerEvents = 'auto';
     }
   };
+
+  const galleryMainImg = document.getElementById('galleryMainImage');
+  if (galleryMainImg) {
+    galleryMainImg.addEventListener('load', () => window.onGalleryImageLoad(galleryMainImg));
+    galleryMainImg.addEventListener('error', () => window.onGalleryImageError(galleryMainImg));
+  }
 
   window.setGallerySlide = function(index) {
     if (index < 0) index = galleryData.length - 1;
@@ -5527,7 +5540,6 @@ document.addEventListener('DOMContentLoaded', () => {
     galleryProgress = 0;
 
     const mainImg = document.getElementById('galleryMainImage');
-    const fallback = document.getElementById('galleryFallback');
     const metaTitle = document.getElementById('metaTitle');
     const metaDesc = document.getElementById('metaDesc');
     const metaIndex = document.getElementById('metaIndex');
@@ -5543,9 +5555,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (counter) counter.textContent = `${String(index + 1).padStart(2, '0')} / 18`;
 
     if (mainImg) {
-      mainImg.src = `photo${index + 1}.jpeg`;
+      const nextSrc = `photo${index + 1}.jpeg`;
       mainImg.alt = currentItem.title;
       mainImg.classList.remove('active');
+      if (mainImg.getAttribute('src') !== nextSrc) {
+        mainImg.src = nextSrc;
+      }
+      if (mainImg.complete) {
+        if (mainImg.naturalWidth > 0) {
+          window.onGalleryImageLoad(mainImg);
+        } else {
+          window.onGalleryImageError(mainImg);
+        }
+      }
     }
 
     thumbs.forEach((thumb, i) => {
@@ -5777,6 +5799,45 @@ document.addEventListener('DOMContentLoaded', () => {
     return sid;
   }
 
+  function getVisitorId() {
+    try {
+      let vid = localStorage.getItem('awh_visitor_id');
+      if (!vid || !/^[a-zA-Z0-9_-]{4,128}$/.test(vid)) {
+        const rand = Math.random().toString(36).substring(2, 8).toUpperCase();
+        const timePart = Date.now().toString(36).slice(-4).toUpperCase();
+        vid = `VIS_${timePart}${rand}`.replace(/[^a-zA-Z0-9_-]/g, '');
+        localStorage.setItem('awh_visitor_id', vid);
+      }
+      return vid;
+    } catch {
+      return getSessionId();
+    }
+  }
+
+  function getStoredVisitorName() {
+    try {
+      return clampStr(localStorage.getItem('awh_visitor_name') || '', 120, '');
+    } catch {
+      return '';
+    }
+  }
+
+  function setStoredVisitorName(name) {
+    try {
+      const clean = clampStr(name, 120, '');
+      if (clean) localStorage.setItem('awh_visitor_name', clean);
+    } catch { /* ignore */ }
+  }
+
+  function formatVisitorDisplayId(record) {
+    const raw = record?.visitorId || record?.sessionId || record?.id || '';
+    if (!raw) return 'VIS-UNKNOWN';
+    if (raw.startsWith('VIS_')) return `VIS-${raw.slice(4).toUpperCase()}`;
+    const parts = raw.split('_');
+    const suffix = (parts[parts.length - 1] || raw).toUpperCase();
+    return `VIS-${suffix.slice(0, 10)}`;
+  }
+
   function clampStr(val, maxLen, fallback = '') {
     const s = String(val ?? fallback).trim();
     if (!s) return fallback;
@@ -5871,6 +5932,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.getItem('awh_visit_logged') === '1') return;
 
     const sessionId = getSessionId();
+    const visitorId = getVisitorId();
+    const visitorName = getStoredVisitorName();
     const visitId = makeSafeId('vis');
     const meta = detectVisitorMetadata();
 
@@ -5880,6 +5943,8 @@ document.addEventListener('DOMContentLoaded', () => {
       await setDoc(doc(db, 'visits', visitId), {
         id: visitId,
         sessionId,
+        visitorId,
+        visitorName,
         deviceType: meta.deviceType,
         browser: meta.browser,
         os: meta.os,
@@ -5928,6 +5993,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inquiryId = makeSafeId('inq');
     const meta = detectVisitorMetadata();
     const sessionId = getSessionId();
+    const visitorId = getVisitorId();
     const path = `inquiries/${inquiryId}`;
 
     const docData = {
@@ -5942,6 +6008,7 @@ document.addEventListener('DOMContentLoaded', () => {
       message: clampStr(payload.message, 3000, 'No message'),
       status: 'new',
       sessionId,
+      visitorId,
       deviceInfo: meta.summary,
       timezone: meta.timezone,
       createdAt: serverTimestamp(),
@@ -5950,6 +6017,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       await setDoc(doc(db, 'inquiries', inquiryId), docData);
+      setStoredVisitorName(docData.name);
       await window.awhTrackEvent('form_submit', `${docData.service} (${docData.formSource})`);
     } catch (error) {
       handleFirestoreError(error, OperationType.CREATE, path);
@@ -6151,6 +6219,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <div class="d-flex flex-wrap gap-2 mb-2">
             <span class="owner-pill owner-pill-purple"><i class="bi bi-signpost-split"></i> Form: ${escapeHtml(inq.formSource)}</span>
+            <span class="owner-pill"><i class="bi bi-fingerprint"></i> ID: ${escapeHtml(formatVisitorDisplayId(inq))}</span>
             <span class="owner-pill"><i class="bi bi-hourglass-split"></i> Timeline: ${escapeHtml(inq.timeline)}</span>
             <span class="owner-pill"><i class="bi bi-laptop"></i> ${escapeHtml(inq.deviceInfo)}</span>
             <span class="owner-pill"><i class="bi bi-globe2"></i> ${escapeHtml(inq.timezone)}</span>
@@ -6180,14 +6249,16 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="owner-record-card text-center py-5">
           <i class="bi bi-eye fs-1 text-info d-block mb-2"></i>
           <h6 class="text-white fw-bold mb-1">No Website Visits Recorded Yet</h6>
-          <p class="mb-0" style="color: #94a3b8; font-size: 13.5px;">Whenever someone opens or checks your portfolio website, their device, source, and checked sections will appear here.</p>
+          <p class="mb-0" style="color: #94a3b8; font-size: 13.5px;">Whenever someone opens or checks your portfolio website, their Visitor ID or name, device, source, and checked sections will appear here.</p>
         </div>`;
       return;
     }
 
     const inquiryBySession = {};
+    const inquiryByVisitorId = {};
     cachedInquiries.forEach(inq => {
-      if (inq.sessionId) inquiryBySession[inq.sessionId] = inq;
+      if (inq.sessionId && !inquiryBySession[inq.sessionId]) inquiryBySession[inq.sessionId] = inq;
+      if (inq.visitorId && !inquiryByVisitorId[inq.visitorId]) inquiryByVisitorId[inq.visitorId] = inq;
     });
 
     const eventsBySession = {};
@@ -6197,23 +6268,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     container.innerHTML = cachedVisits.map(v => {
-      const linkedInq = inquiryBySession[v.sessionId];
+      const linkedInq = inquiryBySession[v.sessionId] || (v.visitorId ? inquiryByVisitorId[v.visitorId] : null);
+      const visitorName = (linkedInq?.name || v.visitorName || '').trim();
+      const displayVisitorId = formatVisitorDisplayId(v);
+      const fullVisitorId = v.visitorId || v.sessionId || v.id || '';
       const evts = eventsBySession[v.sessionId] || [];
       const sections = [...new Set(evts.filter(e => e.eventType === 'section_view').map(e => e.target))];
       const clicks = [...new Set(evts.filter(e => e.eventType !== 'section_view').map(e => `${e.eventType.replace('_', ' ')}: ${e.target}`))];
 
       const devIcon = v.deviceType === 'Mobile' ? 'bi-phone-fill' : v.deviceType === 'Tablet' ? 'bi-tablet-fill' : 'bi-pc-display';
 
+      const identityBadge = visitorName
+        ? `<span class="owner-pill owner-pill-green"><i class="bi bi-person-check-fill"></i> ${escapeHtml(visitorName)}${linkedInq ? ` (${escapeHtml(linkedInq.service)})` : ''}</span>
+           <span class="owner-pill owner-pill-purple" title="Visitor ID: ${escapeHtml(fullVisitorId)}"><i class="bi bi-fingerprint"></i> ${escapeHtml(displayVisitorId)}</span>`
+        : `<span class="owner-pill owner-pill-purple" title="Full ID: ${escapeHtml(fullVisitorId)}"><i class="bi bi-person-badge-fill"></i> Visitor ID: ${escapeHtml(displayVisitorId)}</span>`;
+
       return `
         <div class="owner-record-card ${linkedInq ? 'is-new' : ''}">
           <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
             <div>
               <div class="d-flex flex-wrap align-items-center gap-2">
+                ${identityBadge}
                 <span class="owner-pill owner-pill-cyan"><i class="bi ${devIcon}"></i> ${escapeHtml(v.deviceType)} • ${escapeHtml(v.os)}</span>
                 <span class="owner-pill"><i class="bi bi-browser-chrome"></i> ${escapeHtml(v.browser)}</span>
-                ${linkedInq ? `<span class="owner-pill owner-pill-green"><i class="bi bi-person-check-fill"></i> Form Filled by ${escapeHtml(linkedInq.name)} (${escapeHtml(linkedInq.service)})</span>` : `<span class="owner-pill"><i class="bi bi-person-bounding-box"></i> Anonymous Visitor</span>`}
               </div>
               <div class="mt-2 d-flex flex-wrap gap-3" style="font-size: 12.5px; color: #94a3b8;">
+                <span><i class="bi bi-fingerprint me-1"></i>ID: <strong class="text-white">${escapeHtml(fullVisitorId)}</strong></span>
                 <span><i class="bi bi-clock me-1"></i>${escapeHtml(formatTimestamp(v.createdAt))}</span>
                 <span><i class="bi bi-globe me-1"></i>Timezone: <strong class="text-white">${escapeHtml(v.timezone)}</strong></span>
                 <span><i class="bi bi-link-45deg me-1"></i>Source: <strong class="text-info">${escapeHtml(v.referrer)}</strong></span>
@@ -6320,25 +6400,131 @@ document.addEventListener('DOMContentLoaded', () => {
     if (authError) authError.classList.add('d-none');
   };
 
+  const PORTFOLIO_SECTIONS = [
+    { id: 'about', name: 'About Section', icon: 'bi-person-badge', desc: 'Personal bio, introduction, stats and resume download' },
+    { id: 'skills', name: 'Skills Section', icon: 'bi-cpu', desc: 'Frontend, backend, tools, databases and core proficiencies' },
+    { id: 'certificates', name: 'Certificates Section', icon: 'bi-award', desc: 'Professional credentials, badges and verified courses' },
+    { id: 'education', name: 'Education Section', icon: 'bi-mortarboard', desc: 'Academic background, degrees, diplomas and institutions' },
+    { id: 'projects', name: 'Projects Section', icon: 'bi-code-slash', desc: 'Featured works, client applications, web apps and live showcases' }
+  ];
+
+  window.getSectionVisibility = function(sectionId) {
+    const val = localStorage.getItem(`aayanwebhit_section_visible_${sectionId}`);
+    return val === null ? true : val === 'true';
+  };
+
+  window.setSectionVisibility = function(sectionId, isVisible) {
+    localStorage.setItem(`aayanwebhit_section_visible_${sectionId}`, isVisible ? 'true' : 'false');
+    applySectionVisibility(sectionId, isVisible);
+    renderSectionToggles();
+    if (typeof showNotification === 'function') {
+      const sec = PORTFOLIO_SECTIONS.find(s => s.id === sectionId);
+      showNotification(`${sec ? sec.name : sectionId} is now ${isVisible ? 'visible on' : 'hidden from'} the website.`);
+    }
+  };
+
+  function applySectionVisibility(sectionId, isVisible) {
+    const sectionEl = document.getElementById(sectionId);
+    if (sectionEl) {
+      if (isVisible) {
+        sectionEl.classList.remove('d-none');
+        sectionEl.style.display = '';
+      } else {
+        sectionEl.classList.add('d-none');
+        sectionEl.style.display = 'none';
+      }
+    }
+    const navLink = document.querySelector(`.navbar-nav .nav-link[href="#${sectionId}"]`);
+    if (navLink) {
+      const li = navLink.closest('li');
+      if (li) {
+        li.style.display = isVisible ? '' : 'none';
+      }
+    }
+  }
+
+  function initSectionVisibilities() {
+    PORTFOLIO_SECTIONS.forEach(sec => {
+      const isVis = window.getSectionVisibility(sec.id);
+      applySectionVisibility(sec.id, isVis);
+    });
+    updateHiddenSectionsBadge();
+  }
+
+  function updateHiddenSectionsBadge() {
+    const badge = document.getElementById('hiddenSectionsCount');
+    if (!badge) return;
+    let hiddenCount = 0;
+    PORTFOLIO_SECTIONS.forEach(sec => {
+      if (!window.getSectionVisibility(sec.id)) hiddenCount++;
+    });
+    badge.textContent = hiddenCount > 0 ? `${hiddenCount} hidden` : 'All visible';
+  }
+
+  window.renderSectionToggles = function() {
+    const container = document.getElementById('sectionToggleList');
+    if (!container) return;
+
+    container.innerHTML = PORTFOLIO_SECTIONS.map(sec => {
+      const isVis = window.getSectionVisibility(sec.id);
+      return `
+        <div class="col-12 col-md-6">
+          <div class="owner-record-card h-100 d-flex flex-column justify-content-between">
+            <div>
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <div class="d-flex align-items-center gap-2">
+                  <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(0, 242, 254, 0.12); display: flex; align-items: center; justify-content: center; color: var(--neon-cyan);">
+                    <i class="bi ${sec.icon} fs-5"></i>
+                  </div>
+                  <h6 class="text-white fw-bold mb-0">${escapeHtml(sec.name)}</h6>
+                </div>
+                <span class="owner-pill ${isVis ? 'owner-pill-green' : 'owner-pill-purple'}">
+                  ${isVis ? '<i class="bi bi-eye-fill"></i> Visible' : '<i class="bi bi-eye-slash-fill"></i> Hidden'}
+                </span>
+              </div>
+              <p style="color: #94a3b8; font-size: 13px; margin-bottom: 14px;">${escapeHtml(sec.desc)}</p>
+            </div>
+            <div class="d-flex align-items-center justify-content-between pt-2" style="border-top: 1px solid rgba(148,163,184,0.12);">
+              <span style="font-size: 12.5px; color: #cbd5e1;">Show on website</span>
+              <div class="form-check form-switch mb-0">
+                <input class="form-check-input" type="checkbox" role="switch" id="toggle_${sec.id}" ${isVis ? 'checked' : ''} onchange="setSectionVisibility('${sec.id}', this.checked)" style="width: 48px; height: 24px; cursor: pointer;">
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+    updateHiddenSectionsBadge();
+  };
+
   window.switchOwnerTab = function(tab) {
     const btnInq = document.getElementById('tabBtnInquiries');
     const btnVis = document.getElementById('tabBtnVisitors');
+    const btnSec = document.getElementById('tabBtnSections');
     const panelInq = document.getElementById('ownerPanelInquiries');
     const panelVis = document.getElementById('ownerPanelVisitors');
+    const panelSec = document.getElementById('ownerPanelSections');
     const filterBar = document.getElementById('inquiryFilterBar');
+
+    btnInq?.classList.remove('active');
+    btnVis?.classList.remove('active');
+    btnSec?.classList.remove('active');
+    panelInq?.classList.add('d-none');
+    panelVis?.classList.add('d-none');
+    panelSec?.classList.add('d-none');
+    filterBar?.classList.add('d-none');
 
     if (tab === 'inquiries') {
       btnInq?.classList.add('active');
-      btnVis?.classList.remove('active');
       panelInq?.classList.remove('d-none');
-      panelVis?.classList.add('d-none');
       filterBar?.classList.remove('d-none');
-    } else {
+    } else if (tab === 'visitors') {
       btnVis?.classList.add('active');
-      btnInq?.classList.remove('active');
       panelVis?.classList.remove('d-none');
-      panelInq?.classList.add('d-none');
-      filterBar?.classList.add('d-none');
+    } else if (tab === 'sections') {
+      btnSec?.classList.add('active');
+      panelSec?.classList.remove('d-none');
+      renderSectionToggles();
     }
   };
 
@@ -6387,6 +6573,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Boot Firebase
   (async function initFirebase() {
     try {
+      initSectionVisibilities();
+
       const res = await fetch('/firebase-applet-config.json');
       if (!res.ok) throw new Error('Failed to load Firebase config');
       const firebaseConfig = await res.json();

@@ -70,6 +70,13 @@
           "maxLength": 128,
           "pattern": "^[a-zA-Z0-9_\\-]+$"
         },
+        "visitorId": {
+          "type": "string",
+          "description": "Persistent browser visitor ID linking repeat visits and inquiries.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
         "deviceInfo": {
           "type": "string",
           "description": "Summary of browser, OS, and device type.",
@@ -126,6 +133,18 @@
           "minLength": 1,
           "maxLength": 128,
           "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "visitorId": {
+          "type": "string",
+          "description": "Persistent browser visitor ID displayed in Owner Dashboard when name is unknown.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "visitorName": {
+          "type": "string",
+          "description": "Visitor name if already known from a submitted inquiry on this browser.",
+          "maxLength": 120
         },
         "deviceType": {
           "type": "string",

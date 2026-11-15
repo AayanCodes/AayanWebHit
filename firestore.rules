@@ -42,7 +42,7 @@ service cloud.firestore {
       data.keys().hasOnly([
         'id', 'name', 'email', 'phone', 'service', 'formSource',
         'timeline', 'subject', 'message', 'status', 'sessionId',
-        'deviceInfo', 'timezone', 'createdAt', 'updatedAt'
+        'visitorId', 'deviceInfo', 'timezone', 'createdAt', 'updatedAt'
       ]) &&
       isValidId(data.id) &&
       data.name is string && data.name.size() >= 1 && data.name.size() <= 120 &&
@@ -55,6 +55,7 @@ service cloud.firestore {
       data.message is string && data.message.size() >= 1 && data.message.size() <= 3000 &&
       data.status in ['new', 'reviewed', 'replied', 'archived'] &&
       isValidId(data.sessionId) &&
+      (!('visitorId' in data) || isValidId(data.visitorId)) &&
       data.deviceInfo is string && data.deviceInfo.size() <= 200 &&
       data.timezone is string && data.timezone.size() <= 80 &&
       data.createdAt is timestamp &&
@@ -67,11 +68,13 @@ service cloud.firestore {
         'screenSize', 'language', 'timezone', 'referrer', 'pagePath', 'createdAt'
       ]) &&
       data.keys().hasOnly([
-        'id', 'sessionId', 'deviceType', 'browser', 'os',
+        'id', 'sessionId', 'visitorId', 'visitorName', 'deviceType', 'browser', 'os',
         'screenSize', 'language', 'timezone', 'referrer', 'pagePath', 'createdAt'
       ]) &&
       isValidId(data.id) &&
       isValidId(data.sessionId) &&
+      (!('visitorId' in data) || isValidId(data.visitorId)) &&
+      (!('visitorName' in data) || (data.visitorName is string && data.visitorName.size() <= 120)) &&
       data.deviceType is string && data.deviceType.size() >= 1 && data.deviceType.size() <= 40 &&
       data.browser is string && data.browser.size() >= 1 && data.browser.size() <= 80 &&
       data.os is string && data.os.size() >= 1 && data.os.size() <= 80 &&
