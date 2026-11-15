@@ -6408,18 +6408,43 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'projects', name: 'Projects Section', icon: 'bi-code-slash', desc: 'Featured works, client applications, web apps and live showcases' }
   ];
 
-  window.getSectionVisibility = function(sectionId) {
-    const val = localStorage.getItem(`aayanwebhit_section_visible_${sectionId}`);
-    return val === null ? true : val === 'true';
+  let globalSiteSections = {
+    about: true,
+    skills: true,
+    certificates: true,
+    education: true,
+    projects: true
   };
 
-  window.setSectionVisibility = function(sectionId, isVisible) {
-    localStorage.setItem(`aayanwebhit_section_visible_${sectionId}`, isVisible ? 'true' : 'false');
+  window.getSectionVisibility = function(sectionId) {
+    return globalSiteSections[sectionId] !== false;
+  };
+
+  window.setSectionVisibility = async function(sectionId, isVisible) {
+    if (!db || !isOwnerVerified(currentUser)) {
+      if (typeof showNotification === 'function') {
+        showNotification('Only the verified owner can change global website visibility.');
+      }
+      return;
+    }
+
+    globalSiteSections[sectionId] = isVisible;
     applySectionVisibility(sectionId, isVisible);
     renderSectionToggles();
-    if (typeof showNotification === 'function') {
-      const sec = PORTFOLIO_SECTIONS.find(s => s.id === sectionId);
-      showNotification(`${sec ? sec.name : sectionId} is now ${isVisible ? 'visible on' : 'hidden from'} the website.`);
+
+    const path = 'settings/site_sections';
+    try {
+      await setDoc(doc(db, 'settings', 'site_sections'), {
+        ...globalSiteSections,
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+
+      if (typeof showNotification === 'function') {
+        const sec = PORTFOLIO_SECTIONS.find(s => s.id === sectionId);
+        showNotification(`${sec ? sec.name : sectionId} is now ${isVisible ? 'visible' : 'hidden'} globally on the website.`);
+      }
+    } catch (error) {
+      handleFirestoreError(error, OperationType.WRITE, path);
     }
   };
 
@@ -6443,12 +6468,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function initSectionVisibilities() {
-    PORTFOLIO_SECTIONS.forEach(sec => {
-      const isVis = window.getSectionVisibility(sec.id);
-      applySectionVisibility(sec.id, isVis);
+  function startSectionSettingsListener() {
+    if (!db) return;
+    const path = 'settings/site_sections';
+    onSnapshot(doc(db, 'settings', 'site_sections'), (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        PORTFOLIO_SECTIONS.forEach(sec => {
+          if (typeof data[sec.id] === 'boolean') {
+            globalSiteSections[sec.id] = data[sec.id];
+          }
+          applySectionVisibility(sec.id, window.getSectionVisibility(sec.id));
+        });
+        updateHiddenSectionsBadge();
+        renderSectionToggles();
+      } else {
+        PORTFOLIO_SECTIONS.forEach(sec => {
+          applySectionVisibility(sec.id, true);
+        });
+      }
+    }, (error) => {
+      handleFirestoreError(error, OperationType.GET, path);
     });
-    updateHiddenSectionsBadge();
   }
 
   function updateHiddenSectionsBadge() {
@@ -6573,8 +6614,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Boot Firebase
   (async function initFirebase() {
     try {
-      initSectionVisibilities();
-
       const res = await fetch('/firebase-applet-config.json');
       if (!res.ok) throw new Error('Failed to load Firebase config');
       const firebaseConfig = await res.json();
@@ -6585,6 +6624,8 @@ document.addEventListener('DOMContentLoaded', () => {
       auth = getAuth(app);
 
       await testConnection();
+
+      startSectionSettingsListener();
 
       onAuthStateChanged(auth, (user) => {
         currentUser = user;

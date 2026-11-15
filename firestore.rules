@@ -139,5 +139,22 @@ service cloud.firestore {
       allow update: if false;
       allow delete: if isValidId(eventId) && isAdmin();
     }
+
+    function isValidSectionSettings(data) {
+      return data.keys().hasOnly(['about', 'skills', 'certificates', 'education', 'projects', 'updatedAt']) &&
+      (!('about' in data) || data.about is bool) &&
+      (!('skills' in data) || data.skills is bool) &&
+      (!('certificates' in data) || data.certificates is bool) &&
+      (!('education' in data) || data.education is bool) &&
+      (!('projects' in data) || data.projects is bool) &&
+      (!('updatedAt' in data) || data.updatedAt is timestamp);
+    }
+
+    // Global Website Settings (Section Visibility Control): Public read; Admin write
+    match /settings/{settingId} {
+      allow get, list: if isValidId(settingId);
+      allow create, update: if isValidId(settingId) && isAdmin() && isValidSectionSettings(incoming());
+      allow delete: if isAdmin();
+    }
   }
 }
